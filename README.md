@@ -5,7 +5,7 @@
 
 ## Description
 
-**HamsterSwap** Rust program repository.
+**YouToo** Rust program repository.
 
 
 ## Prerequisites
@@ -23,9 +23,9 @@ $ yarn install
 ## Get new address of program
 ```bash
 anchor build
-solana address -k target/deploy/stake-keypair.json
+solana address -k target/deploy/challenge-keypair.json
 # above program will output the address of program
-# replace all `EdeRcNsVGU1s1NXZZo8FhLD8iePxvoUCdbvwVGnj778f` with your new address
+# replace all `Cza3vL3BhRPZAbvPhz6sT27UDxP1yhcnSqDM3CpR6Zmq` with your new address
 ```
 ## Deploy swap program onto devnet/mainnet
 
@@ -40,7 +40,7 @@ $  anchor deploy --program-name swap --provider.cluster devnet --provider.wallet
 Upgrade
 
 ```bash
-$ anchor upgrade target/deploy/swap.so --program-id EdeRcNsVGU1s1NXZZo8FhLD8iePxvoUCdbvwVGnj778f --provider.cluster devnet --provider.wallet ~/.config/solana/id.json
+$ anchor upgrade target/deploy/swap.so --program-id Cza3vL3BhRPZAbvPhz6sT27UDxP1yhcnSqDM3CpR6Zmq --provider.cluster devnet --provider.wallet ~/.config/solana/id.json
 ```
 
 2/ Deploy mainnet 
@@ -54,7 +54,7 @@ $  anchor deploy --program-name swap --provider.cluster mainnet-beta --provider.
 Upgrade
 
 ```bash
-$ anchor upgrade target/deploy/swap.so --program-id EdeRcNsVGU1s1NXZZo8FhLD8iePxvoUCdbvwVGnj778f --provider.cluster mainnet-beta --provider.wallet ~/.config/solana/id.json
+$ anchor upgrade target/deploy/swap.so --program-id Cza3vL3BhRPZAbvPhz6sT27UDxP1yhcnSqDM3CpR6Zmq --provider.cluster mainnet-beta --provider.wallet ~/.config/solana/id.json
 ```
 
 

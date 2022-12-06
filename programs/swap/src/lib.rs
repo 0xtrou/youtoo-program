@@ -18,10 +18,10 @@ pub use state::*;
 pub use event::*;
 pub use macros::*;
 
-declare_id!("EdeRcNsVGU1s1NXZZo8FhLD8iePxvoUCdbvwVGnj778f");
+declare_id!("Cza3vL3BhRPZAbvPhz6sT27UDxP1yhcnSqDM3CpR6Zmq");
 
 #[program]
-pub mod swap {
+pub mod challenge {
     use super::*;
 
     // Initialize contract once
