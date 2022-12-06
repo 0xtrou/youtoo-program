@@ -34,13 +34,13 @@ solana address -k target/deploy/challenge-keypair.json
 Deploy
 
 ```bash
-$  anchor deploy --program-name swap --provider.cluster devnet --provider.wallet ~/.config/solana/id.json
+$  anchor deploy --program-name challenge --provider.cluster devnet --provider.wallet ~/.config/solana/id.json
 ```
 
 Upgrade
 
 ```bash
-$ anchor upgrade target/deploy/swap.so --program-id Cza3vL3BhRPZAbvPhz6sT27UDxP1yhcnSqDM3CpR6Zmq --provider.cluster devnet --provider.wallet ~/.config/solana/id.json
+$ anchor upgrade target/deploy/challenge.so --program-id Cza3vL3BhRPZAbvPhz6sT27UDxP1yhcnSqDM3CpR6Zmq --provider.cluster devnet --provider.wallet ~/.config/solana/id.json
 ```
 
 2/ Deploy mainnet 
@@ -48,13 +48,13 @@ $ anchor upgrade target/deploy/swap.so --program-id Cza3vL3BhRPZAbvPhz6sT27UDxP1
 Deploy
 
 ```bash
-$  anchor deploy --program-name swap --provider.cluster mainnet-beta --provider.wallet ~/.config/solana/id.json
+$  anchor deploy --program-name challenge --provider.cluster mainnet-beta --provider.wallet ~/.config/solana/id.json
 ```
 
 Upgrade
 
 ```bash
-$ anchor upgrade target/deploy/swap.so --program-id Cza3vL3BhRPZAbvPhz6sT27UDxP1yhcnSqDM3CpR6Zmq --provider.cluster mainnet-beta --provider.wallet ~/.config/solana/id.json
+$ anchor upgrade target/deploy/challenge.so --program-id Cza3vL3BhRPZAbvPhz6sT27UDxP1yhcnSqDM3CpR6Zmq --provider.cluster mainnet-beta --provider.wallet ~/.config/solana/id.json
 ```
 
 
