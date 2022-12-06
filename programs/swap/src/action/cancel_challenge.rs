@@ -14,12 +14,6 @@ pub struct CancelChallengeContext<'info> {
     pub signer: Signer<'info>,
 
     #[account(
-        seeds = [PLATFORM_SEED],
-        bump = challenge_registry.bump,
-    )]
-    pub challenge_registry: Account<'info, ChallengePlatformRegistry>,
-
-    #[account(
         mut,
         seeds = [CHALLENGE_SEED, params.id.as_bytes().as_ref()],
         bump = challenge.bump,
@@ -32,11 +26,6 @@ pub struct CancelChallengeContext<'info> {
 
 impl<'info> CancelChallengeContext<'info> {
     pub fn execute(&mut self, params: CancelChallengeParams) -> Result<()> {
-        // require administrator permission
-        if !self.challenge_registry.is_administrator(self.signer.key().clone()) {
-            return Err(ChallengeError::OnlyAdministrator.into());
-        }
-
         // check if the challenge can be canceled
         if self.challenge.is_challenge_cancelable_for(&self.signer.key) {
             self.challenge.status = ChallengeStatus::Canceled;
