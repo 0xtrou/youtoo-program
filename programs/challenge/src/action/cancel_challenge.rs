@@ -2,7 +2,7 @@ use crate::*;
 
 #[derive(AnchorSerialize, AnchorDeserialize, Default, Clone, Debug, PartialEq)]
 pub struct CancelChallengeParams {
-    id: String
+    id: String,
 }
 
 // Define the context, passed in parameters when trigger from deployer.
@@ -27,23 +27,24 @@ pub struct CancelChallengeContext<'info> {
 impl<'info> CancelChallengeContext<'info> {
     pub fn execute(&mut self, params: CancelChallengeParams) -> Result<()> {
         // check if the challenge can be canceled
-        if self.challenge.is_challenge_cancelable_for(&self.signer.key) {
+        if self.challenge.is_challenge_cancelable_for(&self.signer.key()) {
             self.challenge.status = ChallengeStatus::Canceled;
+
+            // emit event
+            challenge_emit!(
+                ChallengeCanceled {
+                    actor: self.challenge.owner.key().clone(),
+                    status: ChallengeStatus::Canceled,
+                    id: self.challenge.id.clone(),
+                    challenge_key: self.challenge.key().clone(),
+                }
+            );
+
             return Ok(());
         }
 
-        // emit event
-        challenge_emit!({
-           ChallengeCanceled {
-                actor: self.challenge.owner.key().clone(),
-                status: ChallengeStatus::Canceled,
-                id: self.challenge.id.clone(),
-                challenge_key: self.challenge.key().clone(),
-            }
-        });
 
         // ok
         return Err(ChallengeError::ChallengeCannotBeCanceled.into());
     }
-
 }

@@ -138,6 +138,7 @@ impl<'info> TransferAssetsToVaultContext<'info> {
 
         // update the stats
         challenge.prize_pool += params.amount;
+        challenge.donate_pool += params.amount;
 
         // emit event
         challenge_emit!(

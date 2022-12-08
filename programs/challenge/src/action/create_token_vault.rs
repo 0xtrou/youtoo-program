@@ -48,6 +48,7 @@ impl<'info> CreateTokenVaultContext<'info> {
         // Now we push into the allowed mint tokens array.
         self.challenge_registry.allowed_mint_accounts.push(
             MintInfo {
+                bump,
                 mint_account: self.mint_account.key().clone(),
                 token_account: self.challenge_token_vault.key(),
                 is_enabled: true

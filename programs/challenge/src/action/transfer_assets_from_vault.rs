@@ -5,12 +5,12 @@ use std::borrow::{Borrow, BorrowMut};
 pub enum TransferAssetsFromVaultActionType {
     #[default]
     Claiming,
-    Withdrawing
+    Withdrawing,
+    AdminWithdrawingDonatePool
 }
 
 #[derive(AnchorSerialize, AnchorDeserialize, Default, Clone, Debug, PartialEq)]
 pub struct TransferAssetsFromVaultParams {
-    pub challenge_registry_bump: u8,
     pub challenge_token_vault_bump: u8,
     pub challenge_id: String,
     pub action_type: TransferAssetsFromVaultActionType,
@@ -25,8 +25,8 @@ pub struct TransferAssetsFromVaultContext<'info> {
     pub mint_account: Account<'info, Mint>,
 
     #[account(
-        seeds = [PLATFORM_SEED],
-        bump = challenge_registry.bump,
+    seeds = [PLATFORM_SEED],
+    bump = challenge_registry.bump,
     )]
     pub challenge_registry: Account<'info, ChallengePlatformRegistry>,
 
@@ -35,16 +35,16 @@ pub struct TransferAssetsFromVaultContext<'info> {
     pub signer_token_account: AccountInfo<'info>,
 
     #[account(
-        mut,
-        seeds = [CHALLENGE_SEED, params.challenge_id.as_bytes().as_ref()],
-        bump = challenge.bump,
+    mut,
+    seeds = [CHALLENGE_SEED, params.challenge_id.as_bytes().as_ref()],
+    bump = challenge.bump,
     )]
     pub challenge: Account<'info, Challenge>,
 
     #[account(
-        mut,
-        seeds = [TOKEN_ACCOUNT_SEED, mint_account.key().as_ref()],
-        bump = params.challenge_token_vault_bump
+    mut,
+    seeds = [TOKEN_ACCOUNT_SEED, mint_account.key().as_ref()],
+    bump = params.challenge_token_vault_bump
     )]
     pub challenge_token_vault: Account<'info, TokenAccount>,
 
@@ -67,13 +67,17 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
             return self.withdraw(params);
         }
 
+        // Check and route for withdrawal
+        if params.action_type == TransferAssetsFromVaultActionType::AdminWithdrawingDonatePool {
+            return self.admin_withdraw_donate_pool(params);
+        }
+
         return Err(ChallengeError::InvalidValue.into());
     }
 
     fn claim(&mut self, params: TransferAssetsFromVaultParams) -> Result<()> {
         let current_params = params.clone();
         let challenge = self.challenge.borrow_mut();
-
 
         // check whether the challenge is still open for redeeming
         if !challenge.is_challenge_open_for_claim() {
@@ -99,12 +103,11 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
         player.is_winner_claimed_reward = true;
 
         // find the bump to sign with the pda
-        let bump = &[params.challenge_registry_bump][..];
+        let bump = &[challenge.bump][..];
         let signer = token_account_signer!(
             PLATFORM_SEED,
             bump
         );
-
 
         // transfer the token
         token::transfer(
@@ -115,10 +118,13 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
                     to: self.signer_token_account.to_account_info(),
                     authority: self.challenge_registry.to_account_info(),
                 },
-                signer
+                signer,
             ),
             reward_amount,
         ).unwrap();
+
+        // exclude the withdrawn amount
+        challenge.prize_pool -= reward_amount;
 
         // emit event
         challenge_emit!(
@@ -149,6 +155,7 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
             return Err(ChallengeError::WithdrawalIsNotAvailable.into());
         }
 
+        // get withdrawal amount
         let withdrawal_amount = challenge.get_withdrawal_for(
             self.signer.key()
         ).unwrap();
@@ -165,7 +172,7 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
         player.is_player_withdrawn = true;
 
         // find the bump to sign with the pda
-        let bump = &[params.challenge_registry_bump][..];
+        let bump = &[challenge.bump][..];
         let signer = token_account_signer!(
             PLATFORM_SEED,
             bump
@@ -180,10 +187,75 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
                     to: self.signer_token_account.to_account_info(),
                     authority: self.challenge_registry.to_account_info(),
                 },
-                signer
+                signer,
             ),
             withdrawal_amount,
         ).unwrap();
+
+        // exclude the withdrawn amount
+        challenge.prize_pool -= withdrawal_amount;
+
+        // emit event
+        challenge_emit!(
+            RewardClaimed {
+                actor: self.signer.key().clone(),
+                challenge_key: challenge.key().clone(),
+                amount: withdrawal_amount,
+                action_type: params.action_type,
+                reward_mint_token: self.mint_account.key().clone(),
+                challenge_id: challenge.id.clone(),
+            }
+        );
+
+        return Ok(());
+    }
+
+    fn admin_withdraw_donate_pool(&mut self, params: TransferAssetsFromVaultParams) -> Result<()> {
+        // require administrator only
+        if !self.challenge_registry.is_administrator(self.signer.key().clone()) {
+            return Err(ChallengeError::OnlyAdministrator.into());
+        }
+
+        let current_params = params.clone();
+        let challenge = self.challenge.borrow_mut();
+
+        // check whether the challenge is still open for withdrawal
+        if !challenge.is_challenge_open_for_withdrawal() {
+            return Err(ChallengeError::WithdrawalIsNotAvailable.into());
+        }
+
+        // get withdrawal amount
+        let withdrawal_amount = challenge.donate_pool;
+
+        // raise error if play already withdrawn
+        if withdrawal_amount == 0 {
+            return Err(ChallengeError::WithdrawalIsNotAvailable.into());
+        }
+
+        // find the bump to sign with the pda
+        let bump = &[challenge.bump][..];
+        let signer = token_account_signer!(
+            PLATFORM_SEED,
+            bump
+        );
+
+        // transfer the token
+        token::transfer(
+            CpiContext::new_with_signer(
+                self.token_program.to_account_info(),
+                Transfer {
+                    from: self.challenge_token_vault.to_account_info(),
+                    to: self.signer_token_account.to_account_info(),
+                    authority: self.challenge_registry.to_account_info(),
+                },
+                signer,
+            ),
+            withdrawal_amount,
+        ).unwrap();
+
+        // exclude the withdrawn amount
+        challenge.prize_pool -= withdrawal_amount;
+        challenge.donate_pool = 0;
 
         // emit event
         challenge_emit!(

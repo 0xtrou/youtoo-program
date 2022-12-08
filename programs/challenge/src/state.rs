@@ -7,6 +7,7 @@ use std::borrow::Borrow;
 pub struct MintInfo {
     // Whether the mint token is active or not.
     pub is_enabled: bool,
+    pub bump: u8,
     pub mint_account: Pubkey,
     pub token_account: Pubkey,
 }
@@ -115,7 +116,7 @@ pub struct Challenge {
     // Id of the challenge
     pub id: String,
 
-    // Bump to help define the PDA of swap order.
+    // Bump to help define the PDA of challenge.
     pub bump: u8,
 
     // Define the owner of the challenge
@@ -129,6 +130,9 @@ pub struct Challenge {
 
     // Define the current reward pool
     pub prize_pool: u64,
+
+    // Define the donate pool
+    pub donate_pool: u64,
 
     // Define the reward token
     pub reward_token_mint_account: Pubkey,
@@ -147,9 +151,10 @@ impl Challenge {
             owner: Pubkey::default(),
             status: ChallengeStatus::Created,
             players: vec![],
-            prize_pool: 0,
             reward_token_mint_account: Pubkey::default(),
             min_deposit: 0,
+            prize_pool: 0,
+            donate_pool: 0
         }
     }
 
