@@ -243,12 +243,67 @@ export class ChallengeInstructionBuilder {
   }
 
   /**
+   * @dev build instruction
+   * @param payload
+   */
+  private async transferAssetsFromVault(payload: {
+    challengeId: string;
+    actionType: Record<string, any>
+  }): Promise<TransactionInstruction[]> {
+    /**
+     * @dev Initialize account addresses
+     */
+    const [mintAccount] = await this.challengeState.getWhitelistedToken();
+    const {
+      address: [challengePubkey],
+    } = await this.pdaFinder.getChallengeAccount(payload.challengeId);
+    const {
+      address: [challengeTokenVault, challengeTokenVaultBump],
+    } = await this.pdaFinder.getTokenVaultAccount(mintAccount.toBase58());
+    const {
+      address: [signerTokenAccount],
+    } = await this.pdaFinder.getTokenAccountOf(
+        mintAccount,
+        this.program.provider.publicKey,
+    );
+    const {
+      address: [challengeRegistryPubkey],
+    } = await this.pdaFinder.getChallengeRegistryAccount();
+
+    /**
+     * @dev Build the instruction.
+     */
+    const instruction = await this.program.methods
+        // @ts-ignore
+        .transferAssetsFromVault({
+          actionType: payload.actionType,
+          challengeId: payload.challengeId,
+          challengeTokenVaultBump,
+        })
+        .accounts({
+          signer: this.program.provider.publicKey,
+          challenge: challengePubkey,
+          challengeTokenVault,
+          signerTokenAccount,
+          challengeRegistry: challengeRegistryPubkey,
+          mintAccount,
+        })
+        .instruction();
+
+    /**
+     * @dev Return the instruction
+     */
+    return [instruction];
+  }
+
+  /**
    * @dev Join a challenge and deposit an amount of reward.
    * @param payload
    */
-  public async joinChallenge(payload: {
+  private async transferAssetsToVault(payload: {
     challengeId: string;
     amount: string;
+    actionType: Record<string, any>
   }): Promise<TransactionInstruction[]> {
     /**
      * @dev Initialize account addresses
@@ -264,34 +319,49 @@ export class ChallengeInstructionBuilder {
     const {
       address: [signerTokenAccount],
     } = await this.pdaFinder.getTokenAccountOf(
-      mintAccount,
-      this.program.provider.publicKey,
+        mintAccount,
+        this.program.provider.publicKey,
     );
 
     /**
      * @dev Build the instruction.
      */
     const instruction = await this.program.methods
-      // @ts-ignore
-      .transferAssetsToVault({
-        actionType: { joinChallenge: {} },
-        challengeId: payload.challengeId,
-        amount: payload.amount,
-        challengeTokenVaultBump,
-      })
-      .accounts({
-        signer: this.program.provider.publicKey,
-        challenge: challengePubkey,
-        challengeTokenVault,
-        signerTokenAccount,
-        mintAccount,
-      })
-      .instruction();
+        // @ts-ignore
+        .transferAssetsToVault({
+          actionType: payload.actionType,
+          challengeId: payload.challengeId,
+          amount: new BN(payload.amount),
+          challengeTokenVaultBump,
+        })
+        .accounts({
+          signer: this.program.provider.publicKey,
+          challenge: challengePubkey,
+          challengeTokenVault,
+          signerTokenAccount,
+          mintAccount,
+        })
+        .instruction();
 
     /**
      * @dev Return the instruction
      */
     return [instruction];
+  }
+
+  /**
+   * @dev Join a challenge and deposit an amount of reward.
+   * @param payload
+   */
+  public async joinChallenge(payload: {
+    challengeId: string;
+    amount: string;
+  }): Promise<TransactionInstruction[]> {
+    return this.transferAssetsToVault({
+      challengeId: payload.challengeId,
+      actionType: {joinChallenge: {}},
+      amount: payload.amount
+    });
   }
 
   /**
@@ -302,70 +372,49 @@ export class ChallengeInstructionBuilder {
     challengeId: string;
     amount: string;
   }): Promise<TransactionInstruction[]> {
-    /**
-     * @dev Initialize account addresses
-     */
-    const [mintAccount] = await this.challengeState.getWhitelistedToken();
-    const {
-      address: [challengePubkey],
-    } = await this.pdaFinder.getChallengeAccount(payload.challengeId);
-    const {
-      address: [challengeTokenVault, challengeTokenVaultBump],
-    } = await this.pdaFinder.getTokenVaultAccount(mintAccount.toBase58());
-    const {
-      address: [signerTokenAccount],
-    } = await this.pdaFinder.getTokenAccountOf(
-      mintAccount,
-      this.program.provider.publicKey,
-    );
-
-    /**
-     * @dev Build the instruction.
-     */
-    const instruction = await this.program.methods
-      // @ts-ignore
-      .transferAssetsToVault({
-        actionType: { donate: {} },
-        challengeId: payload.challengeId,
-        amount: payload.amount,
-        challengeTokenVaultBump,
-      })
-      .accounts({
-        signer: this.program.provider.publicKey,
-        challenge: challengePubkey,
-        challengeTokenVault,
-        signerTokenAccount,
-        mintAccount,
-      })
-      .instruction();
-
-    /**
-     * @dev Return the instruction
-     */
-    return [instruction];
+    return this.transferAssetsToVault({
+      challengeId: payload.challengeId,
+      actionType: {donate: {}},
+      amount: payload.amount
+    });
   }
-  //
-  // /**
-  //  * @dev Claim reward from a challenge
-  //  * @param payload
-  //  */
-  // public async claimReward(payload: {
-  //   challengeId: string;
-  // }): Promise<TransactionInstruction[]> {}
-  //
-  // /**
-  //  * @dev Claim reward from a challenge
-  //  * @param payload
-  //  */
-  // public async withdrawDepositedReward(payload: {
-  //   challengeId: string;
-  // }): Promise<TransactionInstruction[]> {}
-  //
-  // /**
-  //  * @dev Claim reward from a challenge
-  //  * @param payload
-  //  */
-  // public async adminWithdrawDonatePool(payload: {
-  //   challengeId: string;
-  // }): Promise<TransactionInstruction[]> {}
+
+  /**
+   * @dev Claim reward from a challenge
+   * @param payload
+   */
+  public async claimReward(payload: {
+    challengeId: string;
+  }): Promise<TransactionInstruction[]> {
+    return this.transferAssetsFromVault({
+      challengeId: payload.challengeId,
+      actionType: {claiming: {}}
+    })
+  }
+
+  /**
+   * @dev Claim reward from a challenge
+   * @param payload
+   */
+  public async withdrawDepositedReward(payload: {
+    challengeId: string;
+  }): Promise<TransactionInstruction[]> {
+    return this.transferAssetsFromVault({
+      challengeId: payload.challengeId,
+      actionType: {withdrawing: {}}
+    })
+  }
+
+  /**
+   * @dev Claim reward from a challenge
+   * @param payload
+   */
+  public async adminWithdrawDonatePool(payload: {
+    challengeId: string;
+  }): Promise<TransactionInstruction[]> {
+    return this.transferAssetsFromVault({
+      challengeId: payload.challengeId,
+      actionType: {adminWithdrawingDonatePool: {}}
+    })
+  }
 }
