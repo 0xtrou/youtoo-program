@@ -10,13 +10,6 @@ import type { Challenge } from './challenge.idl';
 import { IDL } from './challenge.idl';
 
 /**
- * @dev Export endpoints
- */
-export const SOLANA_DEVNET_RPC_ENDPOINT = 'https://api.devnet.solana.com';
-export const SOLANA_MAINNET_RPC_RPC_ENDPOINT =
-  'https://api.mainnet-beta.solana.com';
-
-/**
  * @dev Export program type
  */
 export type ChallengeProgram = Program<Challenge>;

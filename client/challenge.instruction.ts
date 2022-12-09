@@ -248,7 +248,7 @@ export class ChallengeInstructionBuilder {
    */
   private async transferAssetsFromVault(payload: {
     challengeId: string;
-    actionType: Record<string, any>
+    actionType: Record<string, any>;
   }): Promise<TransactionInstruction[]> {
     /**
      * @dev Initialize account addresses
@@ -263,8 +263,8 @@ export class ChallengeInstructionBuilder {
     const {
       address: [signerTokenAccount],
     } = await this.pdaFinder.getTokenAccountOf(
-        mintAccount,
-        this.program.provider.publicKey,
+      mintAccount,
+      this.program.provider.publicKey,
     );
     const {
       address: [challengeRegistryPubkey],
@@ -274,21 +274,21 @@ export class ChallengeInstructionBuilder {
      * @dev Build the instruction.
      */
     const instruction = await this.program.methods
-        // @ts-ignore
-        .transferAssetsFromVault({
-          actionType: payload.actionType,
-          challengeId: payload.challengeId,
-          challengeTokenVaultBump,
-        })
-        .accounts({
-          signer: this.program.provider.publicKey,
-          challenge: challengePubkey,
-          challengeTokenVault,
-          signerTokenAccount,
-          challengeRegistry: challengeRegistryPubkey,
-          mintAccount,
-        })
-        .instruction();
+      // @ts-ignore
+      .transferAssetsFromVault({
+        actionType: payload.actionType,
+        challengeId: payload.challengeId,
+        challengeTokenVaultBump,
+      })
+      .accounts({
+        signer: this.program.provider.publicKey,
+        challenge: challengePubkey,
+        challengeTokenVault,
+        signerTokenAccount,
+        challengeRegistry: challengeRegistryPubkey,
+        mintAccount,
+      })
+      .instruction();
 
     /**
      * @dev Return the instruction
@@ -303,7 +303,7 @@ export class ChallengeInstructionBuilder {
   private async transferAssetsToVault(payload: {
     challengeId: string;
     amount: string;
-    actionType: Record<string, any>
+    actionType: Record<string, any>;
   }): Promise<TransactionInstruction[]> {
     /**
      * @dev Initialize account addresses
@@ -319,29 +319,29 @@ export class ChallengeInstructionBuilder {
     const {
       address: [signerTokenAccount],
     } = await this.pdaFinder.getTokenAccountOf(
-        mintAccount,
-        this.program.provider.publicKey,
+      mintAccount,
+      this.program.provider.publicKey,
     );
 
     /**
      * @dev Build the instruction.
      */
     const instruction = await this.program.methods
-        // @ts-ignore
-        .transferAssetsToVault({
-          actionType: payload.actionType,
-          challengeId: payload.challengeId,
-          amount: new BN(payload.amount),
-          challengeTokenVaultBump,
-        })
-        .accounts({
-          signer: this.program.provider.publicKey,
-          challenge: challengePubkey,
-          challengeTokenVault,
-          signerTokenAccount,
-          mintAccount,
-        })
-        .instruction();
+      // @ts-ignore
+      .transferAssetsToVault({
+        actionType: payload.actionType,
+        challengeId: payload.challengeId,
+        amount: new BN(payload.amount),
+        challengeTokenVaultBump,
+      })
+      .accounts({
+        signer: this.program.provider.publicKey,
+        challenge: challengePubkey,
+        challengeTokenVault,
+        signerTokenAccount,
+        mintAccount,
+      })
+      .instruction();
 
     /**
      * @dev Return the instruction
@@ -359,8 +359,8 @@ export class ChallengeInstructionBuilder {
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsToVault({
       challengeId: payload.challengeId,
-      actionType: {joinChallenge: {}},
-      amount: payload.amount
+      actionType: { joinChallenge: {} },
+      amount: payload.amount,
     });
   }
 
@@ -374,8 +374,8 @@ export class ChallengeInstructionBuilder {
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsToVault({
       challengeId: payload.challengeId,
-      actionType: {donate: {}},
-      amount: payload.amount
+      actionType: { donate: {} },
+      amount: payload.amount,
     });
   }
 
@@ -388,8 +388,8 @@ export class ChallengeInstructionBuilder {
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsFromVault({
       challengeId: payload.challengeId,
-      actionType: {claiming: {}}
-    })
+      actionType: { claiming: {} },
+    });
   }
 
   /**
@@ -401,8 +401,8 @@ export class ChallengeInstructionBuilder {
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsFromVault({
       challengeId: payload.challengeId,
-      actionType: {withdrawing: {}}
-    })
+      actionType: { withdrawing: {} },
+    });
   }
 
   /**
@@ -414,7 +414,7 @@ export class ChallengeInstructionBuilder {
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsFromVault({
       challengeId: payload.challengeId,
-      actionType: {adminWithdrawingDonatePool: {}}
-    })
+      actionType: { adminWithdrawingDonatePool: {} },
+    });
   }
 }
