@@ -122,8 +122,8 @@ describe('[create_token_vault]', async () => {
     const state = await workspace.challengeState.getChallengeRegistry();
     // @ts-ignore
     expect(state.allowedMintAccounts.length).eq(1);
-    // @ts-ignore
     expect(
+      // @ts-ignore
       !!state.allowedMintAccounts.find(
         (item) =>
           item.mintAccount.toBase58() === mintTokenAccount.toBase58() &&
