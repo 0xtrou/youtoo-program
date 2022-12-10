@@ -329,14 +329,6 @@ export type Challenge = {
               };
             };
           },
-          {
-            name: 'totalChallengePools';
-            type: 'u64';
-          },
-          {
-            name: 'totalPrizePool';
-            type: 'u64';
-          },
         ];
       };
     },
@@ -1248,14 +1240,6 @@ export const IDL: Challenge = {
                 defined: 'MintInfo',
               },
             },
-          },
-          {
-            name: 'totalChallengePools',
-            type: 'u64',
-          },
-          {
-            name: 'totalPrizePool',
-            type: 'u64',
           },
         ],
       },

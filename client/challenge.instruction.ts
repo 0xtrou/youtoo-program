@@ -61,7 +61,7 @@ export class ChallengeInstructionBuilder {
    */
   public async updateChallengeRegistry(payload: {
     allowedAdministrators: PublicKey[];
-    signer: PublicKey
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     const {
       address: [challengeRegistryPubkey],
@@ -140,7 +140,7 @@ export class ChallengeInstructionBuilder {
    */
   public async createChallenge(payload: {
     challengeId: string;
-    minDeposit: number;
+    minDeposit: BN;
     rewardMintAddress: string;
     signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
@@ -163,7 +163,7 @@ export class ChallengeInstructionBuilder {
       .createChallenge({
         rewardTokenMintAccount: mintAccount,
         id: payload.challengeId,
-        minDeposit: new BN(payload.minDeposit),
+        minDeposit: payload.minDeposit,
       })
       .accounts({
         challengeOwner: payload.signer,
@@ -308,7 +308,7 @@ export class ChallengeInstructionBuilder {
    */
   private async transferAssetsToVault(payload: {
     challengeId: string;
-    amount: string;
+    amount: BN;
     actionType: Record<string, any>;
     signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
@@ -362,7 +362,7 @@ export class ChallengeInstructionBuilder {
    */
   public async joinChallenge(payload: {
     challengeId: string;
-    amount: string;
+    amount: BN;
     signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsToVault({
@@ -379,7 +379,7 @@ export class ChallengeInstructionBuilder {
    */
   public async donateReward(payload: {
     challengeId: string;
-    amount: string;
+    amount: BN;
     signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsToVault({

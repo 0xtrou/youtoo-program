@@ -76,7 +76,7 @@ impl ChallengePlatformRegistry {
             return self.allowed_administrators.clone()
                 .into_iter()
                 .filter(|admin_pubkey| admin_pubkey.clone() == signer)
-                .count() == 1;;
+                .count() == 1;
     }
 }
 
@@ -249,7 +249,7 @@ impl Challenge {
         return return self.players.clone()
             .into_iter()
             .filter(|player| (player.public_key == signer && player.is_winner == true))
-            .count() == 1;;
+            .count() == 1;
     }
 
     // Define the function to get prize for signer

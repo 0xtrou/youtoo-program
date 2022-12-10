@@ -46,8 +46,9 @@ impl<'info> CreateChallengeContext<'info> {
         let challenge = &mut self.challenge;
         challenge.owner = *self.challenge_owner.key;
         challenge.id = params.id;
-        challenge.bump = bump;
+        challenge.min_deposit = params.min_deposit;
         challenge.reward_token_mint_account = params.reward_token_mint_account;
+        challenge.bump = bump;
         challenge.status = ChallengeStatus::Created;
 
         // Now to validate data state

@@ -59,8 +59,9 @@ export const getWorkspace = async (
     programBuilder,
     challengeState,
     program,
+    programFinder,
     instructionBuilder,
     connection: programBuilder.getConnection(),
-    provider: program.provider
+    provider: program.provider,
   };
 };

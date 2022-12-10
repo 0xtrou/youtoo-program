@@ -35,9 +35,10 @@ impl<'info> SubmitWinnersContext<'info> {
     pub fn execute(&mut self, params: SubmitWinnersParams) -> Result<()> {
         let challenge = &mut self.challenge;
 
-        // require administrator permission
-        if !self.challenge_registry.is_administrator(self.signer.key().clone()) {
-            return Err(ChallengeError::OnlyAdministrator.into());
+        // require administrator permission or challenge owner
+        if !(self.challenge_registry.is_administrator(self.signer.key().clone()))
+            && !(self.signer.key().clone() != challenge.owner.key().clone()) {
+            return Err(ChallengeError::InvalidValue.into());
         }
 
         // must be open for participants first
