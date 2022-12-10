@@ -21,7 +21,6 @@ pub struct UpdateChallengePlatformContext<'info> {
         mut,
         seeds = [PLATFORM_SEED],
         bump = challenge_registry.bump,
-        has_one = owner
     )]
     pub challenge_registry: Account<'info, ChallengePlatformRegistry>,
 
@@ -33,7 +32,7 @@ pub struct UpdateChallengePlatformContext<'info> {
 impl<'info> UpdateChallengePlatformContext<'info> {
     pub fn execute(&mut self, params: UpdateChallengePlatformParams) -> Result<()> {
         // must be one of the administrators
-        if self.challenge_registry.is_administrator(self.owner.key()) {
+        if !self.challenge_registry.is_administrator(self.owner.key()) {
             return Err(ChallengeError::OnlyAdministrator.into());
         }
 

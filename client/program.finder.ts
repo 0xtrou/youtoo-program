@@ -1,5 +1,6 @@
 import { PublicKey, Keypair, AccountInfo } from '@solana/web3.js';
 import { Wallet } from '@project-serum/anchor';
+import * as anchor from '@project-serum/anchor';
 import * as SPlTokenService from '@solana/spl-token';
 
 import { ProgramBuilder } from './program.builder';
@@ -37,7 +38,7 @@ export class PDAFinder {
 
     const [pubkey, bump] = PublicKey.findProgramAddressSync(
       [
-        anchor.utils.bytes.utf8.encode('SEED::CHALLENGE::PROPOSAL_SEED'),
+        anchor.utils.bytes.utf8.encode('SEED::CHALLENGE'),
         anchor.utils.bytes.utf8.encode(challengeId.slice(0, 10)),
       ],
       program.programId,
@@ -88,7 +89,7 @@ export class PDAFinder {
     // find the swap account
     const [pubkey, bump] = PublicKey.findProgramAddressSync(
       [
-        anchor.utils.bytes.utf8.encode('SEED::SWAP::TOKEN_VAULT_SEED'),
+        anchor.utils.bytes.utf8.encode('SEED::CHALLENGE::TOKEN_VAULT'),
         new PublicKey(mintAccount).toBytes(),
       ],
       program.programId,

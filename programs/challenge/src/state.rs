@@ -29,12 +29,6 @@ pub struct ChallengePlatformRegistry {
 
     // define whitelisted mint token account
     pub allowed_mint_accounts: Vec<MintInfo>,
-
-    // Define total pools
-    pub total_challenge_pools: u64,
-
-    // Define the total prize pool
-    pub total_prize_pool: u64,
 }
 
 // Define handler

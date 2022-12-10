@@ -61,6 +61,7 @@ export class ChallengeInstructionBuilder {
    */
   public async updateChallengeRegistry(payload: {
     allowedAdministrators: PublicKey[];
+    signer: PublicKey
   }): Promise<TransactionInstruction[]> {
     const {
       address: [challengeRegistryPubkey],
@@ -70,12 +71,12 @@ export class ChallengeInstructionBuilder {
      * @dev return the  token vault creation instruction.
      */
     const instruction = await this.program.methods
-      .initialize({
+      .updateChallengeRegistry({
         allowedMintAccounts: [],
         allowedAdministrators: payload.allowedAdministrators,
       })
       .accounts({
-        owner: this.program.provider.publicKey,
+        owner: payload.signer,
         challengeRegistry: challengeRegistryPubkey,
       })
       .instruction();
@@ -93,6 +94,7 @@ export class ChallengeInstructionBuilder {
    */
   public async createTokenVault(payload: {
     mintTokenAddress: string;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     /**
      * @dev Initializes account, the accounts can be empty when it's not initialized yet.
@@ -119,7 +121,7 @@ export class ChallengeInstructionBuilder {
     const instruction = await this.program.methods
       .createTokenVault()
       .accounts({
-        signer: this.program.provider.publicKey,
+        signer: payload.signer,
         mintAccount,
         challengeRegistry: challengeRegistryPubkey,
         challengeTokenVault: tokenVaultPubkey,
@@ -140,6 +142,7 @@ export class ChallengeInstructionBuilder {
     challengeId: string;
     minDeposit: number;
     rewardMintAddress: string;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     /**
      * @dev Initialize the account addresses
@@ -163,7 +166,7 @@ export class ChallengeInstructionBuilder {
         minDeposit: new BN(payload.minDeposit),
       })
       .accounts({
-        challengeOwner: this.program.provider.publicKey,
+        challengeOwner: payload.signer,
         challenge: challengePubkey,
         challengeRegistry: challengeRegistryPubkey,
       })
@@ -180,6 +183,7 @@ export class ChallengeInstructionBuilder {
    */
   public async cancelChallenge(payload: {
     challengeId: string;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     const {
       address: [challengePubkey],
@@ -193,7 +197,7 @@ export class ChallengeInstructionBuilder {
         id: payload.challengeId,
       })
       .accounts({
-        signer: this.program.provider.publicKey,
+        signer: payload.signer,
         challenge: challengePubkey,
       })
       .instruction();
@@ -210,6 +214,7 @@ export class ChallengeInstructionBuilder {
   public async submitWinnerList(payload: {
     challengeId: string;
     winnerList: PublicKey[];
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     /**
      * @dev Initialize the account addresses
@@ -230,7 +235,7 @@ export class ChallengeInstructionBuilder {
         winnerList: payload.winnerList,
       })
       .accounts({
-        signer: this.program.provider.publicKey,
+        signer: payload.signer,
         challenge: challengePubkey,
         challengeRegistry: challengeRegistryPubkey,
       })
@@ -249,6 +254,7 @@ export class ChallengeInstructionBuilder {
   private async transferAssetsFromVault(payload: {
     challengeId: string;
     actionType: Record<string, any>;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     /**
      * @dev Initialize account addresses
@@ -281,7 +287,7 @@ export class ChallengeInstructionBuilder {
         challengeTokenVaultBump,
       })
       .accounts({
-        signer: this.program.provider.publicKey,
+        signer: payload.signer,
         challenge: challengePubkey,
         challengeTokenVault,
         signerTokenAccount,
@@ -304,6 +310,7 @@ export class ChallengeInstructionBuilder {
     challengeId: string;
     amount: string;
     actionType: Record<string, any>;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     /**
      * @dev Initialize account addresses
@@ -335,7 +342,7 @@ export class ChallengeInstructionBuilder {
         challengeTokenVaultBump,
       })
       .accounts({
-        signer: this.program.provider.publicKey,
+        signer: payload.signer,
         challenge: challengePubkey,
         challengeTokenVault,
         signerTokenAccount,
@@ -356,11 +363,13 @@ export class ChallengeInstructionBuilder {
   public async joinChallenge(payload: {
     challengeId: string;
     amount: string;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsToVault({
       challengeId: payload.challengeId,
       actionType: { joinChallenge: {} },
       amount: payload.amount,
+      signer: payload.signer,
     });
   }
 
@@ -371,11 +380,13 @@ export class ChallengeInstructionBuilder {
   public async donateReward(payload: {
     challengeId: string;
     amount: string;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsToVault({
       challengeId: payload.challengeId,
       actionType: { donate: {} },
       amount: payload.amount,
+      signer: payload.signer,
     });
   }
 
@@ -385,10 +396,12 @@ export class ChallengeInstructionBuilder {
    */
   public async claimReward(payload: {
     challengeId: string;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsFromVault({
       challengeId: payload.challengeId,
       actionType: { claiming: {} },
+      signer: payload.signer,
     });
   }
 
@@ -398,10 +411,12 @@ export class ChallengeInstructionBuilder {
    */
   public async withdrawDepositedReward(payload: {
     challengeId: string;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsFromVault({
       challengeId: payload.challengeId,
       actionType: { withdrawing: {} },
+      signer: payload.signer,
     });
   }
 
@@ -411,10 +426,12 @@ export class ChallengeInstructionBuilder {
    */
   public async adminWithdrawDonatePool(payload: {
     challengeId: string;
+    signer: PublicKey;
   }): Promise<TransactionInstruction[]> {
     return this.transferAssetsFromVault({
       challengeId: payload.challengeId,
       actionType: { adminWithdrawingDonatePool: {} },
+      signer: payload.signer,
     });
   }
 }

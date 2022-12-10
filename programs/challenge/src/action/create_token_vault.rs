@@ -36,7 +36,7 @@ pub struct CreateTokenVaultContext<'info> {
 impl<'info> CreateTokenVaultContext<'info> {
     pub fn execute(&mut self, bump: u8) -> Result<()> {
         // must be one of the administrators
-        if self.challenge_registry.is_administrator(self.signer.key()) {
+        if !self.challenge_registry.is_administrator(self.signer.key()) {
             return Err(ChallengeError::OnlyAdministrator.into());
         }
 
