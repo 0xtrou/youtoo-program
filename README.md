@@ -68,23 +68,25 @@ $ anchor test
 ```
 
 ```txt
-  ✔ [initialize_swap_program] should: deployer initializes swap registry successfully
-  ✔ [initialize_swap_program] should: deployer fails to re-initialize the swap registry
-  ✔ [update_swap_program] should: deployer updates registry successfully (443ms)
-  ✔ [update_swap_program] should: non-owner fails to modify the swap program
-  ✔ [update_swap_program] should: deployer fails to update invalid values
-  ✔ [create_token_vault] should: non-deployer fails to create a token vault
-  ✔ [create_token_vault] should: deployer creates a token vault successfully (446ms)
-  ✔ [create_token_vault] should: deployer fails to create a token vault for an added mint account
-  ✔ [create_proposal] should: fail to create proposal with un-allowed mint tokens
-  ✔ [create_proposal] should: everyone can create publicly a proposal (964ms)
-  ✔ [cancel_proposal] should: participants can cancel proposal anytime when proposal isn't fulfilled (930ms)
-  ✔ [withdraw_assets] should: participant can withdraw assets when proposal is canceled (452ms)
-  ✔ [deposit_assets] should: proposal owner deposits offered items successfully (491ms)
-  ✔ [fulfil_assets] should: participant fulfill proposal successfully (447ms)
-  ✔ [redeem_assets] should: proposal owner can redeem items once the proposal is fulfilled (459ms)
-  ✔ [redeem_assets] should: participant can redeem items once the proposal is fulfilled (461ms)
+  [initialize_challenge_registry]
+    ✔ [initialize_challenge_registry] should: empty state
+    ✔ [initialize_challenge_registry] should: deployer should initialize successfully (462ms)
+    ✔ [initialize_challenge_registry] should: deployer can update administrators list (480ms)
+    ✔ [initialize_challenge_registry] should: non-deployer fail to update registry
 
-  16 passing (12s)
+  [create_token_vault]
+    ✔ [create_token_vault] should: non-administrator fail to create token vault (38ms)
+    ✔ [create_token_vault] should: only administrator can create token vault (448ms)
+
+  [manage_challenge]
+    ✔ [create_challenge] should: fail to create a challenge with un-allowed mint account
+    ✔ [create_challenge] should: anyone can create a challenge publicly (918ms)
+    ✔ [cancel_challenge] should: outsider cannot cancel the challenge
+    ✔ [cancel_challenge] should: administrator cannot cancel the challenge
+    ✔ [cancel_challenge] should: challenge owner can cancel the challenge (442ms)
+
+
+  11 passing (6s)
+
 
 ```
