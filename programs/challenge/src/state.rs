@@ -92,6 +92,12 @@ pub enum ChallengeStatus {
 
     // Declare that the challenge is canceled
     Canceled,
+
+    // Declare that the challenge is claimed.
+    Claimed,
+
+    // Declare that the challenge is withdrawn.
+    Withdrawn,
 }
 
 #[derive(AnchorSerialize, AnchorDeserialize, Default, Clone, Copy, Debug, PartialEq)]
@@ -250,6 +256,24 @@ impl Challenge {
             .into_iter()
             .filter(|player| (player.public_key == signer && player.is_winner == true))
             .count() == 1;
+    }
+
+    // Define the method to get total winners that claimed reward
+    pub fn get_total_unclaimed_winners(&self) -> Result<u64> {
+        return Ok(self.players.clone()
+            .into_iter()
+            .filter(|player| player.is_winner == true && !player.is_winner_claimed_reward == true)
+            .count() as u64
+        );
+    }
+
+    // Define the method to get total winners that claimed reward
+    pub fn get_total_unwithdrawn_player(&self) -> Result<u64> {
+        return Ok(self.players.clone()
+            .into_iter()
+            .filter(|player| player.is_player_withdrawn == false)
+            .count() as u64
+        );
     }
 
     // Define the function to get prize for signer

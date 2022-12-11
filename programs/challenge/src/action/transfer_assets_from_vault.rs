@@ -123,9 +123,6 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
             reward_amount,
         ).unwrap();
 
-        // exclude the withdrawn amount
-        challenge.prize_pool -= reward_amount;
-
         // emit event
         challenge_emit!(
             RewardClaimed {
@@ -137,6 +134,10 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
                 challenge_id: challenge.id.clone(),
             }
         );
+
+        if challenge.get_total_unclaimed_winners().unwrap() == 0 {
+            challenge.status = ChallengeStatus::Claimed;
+        }
 
         return Ok(());
     }
@@ -192,9 +193,6 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
             withdrawal_amount,
         ).unwrap();
 
-        // exclude the withdrawn amount
-        challenge.prize_pool -= withdrawal_amount;
-
         // emit event
         challenge_emit!(
             RewardClaimed {
@@ -207,6 +205,10 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
             }
         );
 
+        if challenge.get_total_unwithdrawn_player().unwrap() == 0 {
+            challenge.status = ChallengeStatus::Withdrawn;
+        }
+
         return Ok(());
     }
 
@@ -218,11 +220,6 @@ impl<'info> TransferAssetsFromVaultContext<'info> {
 
         let current_params = params.clone();
         let challenge = self.challenge.borrow_mut();
-
-        // check whether the challenge is still open for withdrawal
-        if !challenge.is_challenge_open_for_withdrawal() {
-            return Err(ChallengeError::WithdrawalIsNotAvailable.into());
-        }
 
         // get withdrawal amount
         let withdrawal_amount = challenge.donate_pool;

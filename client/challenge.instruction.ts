@@ -268,10 +268,7 @@ export class ChallengeInstructionBuilder {
     } = await this.pdaFinder.getTokenVaultAccount(mintAccount.toBase58());
     const {
       address: [signerTokenAccount],
-    } = await this.pdaFinder.getTokenAccountOf(
-      mintAccount,
-      payload.signer,
-    );
+    } = await this.pdaFinder.getTokenAccountOf(mintAccount, payload.signer);
     const {
       address: [challengeRegistryPubkey],
     } = await this.pdaFinder.getChallengeRegistryAccount();
@@ -325,10 +322,7 @@ export class ChallengeInstructionBuilder {
     } = await this.pdaFinder.getTokenVaultAccount(mintAccount.toBase58());
     const {
       address: [signerTokenAccount],
-    } = await this.pdaFinder.getTokenAccountOf(
-      mintAccount,
-      payload.signer,
-    );
+    } = await this.pdaFinder.getTokenAccountOf(mintAccount, payload.signer);
 
     /**
      * @dev Build the instruction.

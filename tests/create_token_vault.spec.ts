@@ -4,7 +4,8 @@ import {
   Keypair,
   Transaction,
   LAMPORTS_PER_SOL,
-  PublicKey, SendTransactionError,
+  PublicKey,
+  SendTransactionError,
 } from '@solana/web3.js';
 import { expect } from 'chai';
 import { createMint } from '@solana/spl-token';

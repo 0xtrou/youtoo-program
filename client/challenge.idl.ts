@@ -1,1828 +1,1840 @@
 import type { Program } from '@project-serum/anchor';
-
 export type Challenge = {
-  version: '0.1.0';
-  name: 'challenge';
-  instructions: [
+  "version": "0.1.0",
+  "name": "challenge",
+  "instructions": [
     {
-      name: 'initialize';
-      accounts: [
+      "name": "initialize",
+      "accounts": [
         {
-          name: 'owner';
-          isMut: true;
-          isSigner: true;
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challengeRegistry';
-          isMut: true;
-          isSigner: false;
+          "name": "challengeRegistry",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
-        },
-      ];
-      args: [
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
         {
-          name: 'params';
-          type: {
-            defined: 'InitializeChallengePlatformParams';
-          };
-        },
-      ];
+          "name": "params",
+          "type": {
+            "defined": "InitializeChallengePlatformParams"
+          }
+        }
+      ]
     },
     {
-      name: 'updateChallengeRegistry';
-      accounts: [
+      "name": "updateChallengeRegistry",
+      "accounts": [
         {
-          name: 'owner';
-          isMut: true;
-          isSigner: true;
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challengeRegistry';
-          isMut: true;
-          isSigner: false;
+          "name": "challengeRegistry",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
-        },
-      ];
-      args: [
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
         {
-          name: 'params';
-          type: {
-            defined: 'UpdateChallengePlatformParams';
-          };
-        },
-      ];
+          "name": "params",
+          "type": {
+            "defined": "UpdateChallengePlatformParams"
+          }
+        }
+      ]
     },
     {
-      name: 'createTokenVault';
-      accounts: [
+      "name": "createTokenVault",
+      "accounts": [
         {
-          name: 'signer';
-          isMut: true;
-          isSigner: true;
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challengeRegistry';
-          isMut: true;
-          isSigner: false;
+          "name": "challengeRegistry",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'mintAccount';
-          isMut: false;
-          isSigner: false;
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'challengeTokenVault';
-          isMut: true;
-          isSigner: false;
+          "name": "challengeTokenVault",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'tokenProgram';
-          isMut: false;
-          isSigner: false;
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'rent';
-          isMut: false;
-          isSigner: false;
-        },
-      ];
-      args: [];
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
     },
     {
-      name: 'createChallenge';
-      accounts: [
+      "name": "createChallenge",
+      "accounts": [
         {
-          name: 'challengeOwner';
-          isMut: true;
-          isSigner: true;
+          "name": "challengeOwner",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challenge';
-          isMut: true;
-          isSigner: false;
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challengeRegistry';
-          isMut: false;
-          isSigner: false;
+          "name": "challengeRegistry",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
-        },
-      ];
-      args: [
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
         {
-          name: 'params';
-          type: {
-            defined: 'CreateChallengeParams';
-          };
-        },
-      ];
+          "name": "params",
+          "type": {
+            "defined": "CreateChallengeParams"
+          }
+        }
+      ]
     },
     {
-      name: 'cancelChallenge';
-      accounts: [
+      "name": "cancelChallenge",
+      "accounts": [
         {
-          name: 'signer';
-          isMut: true;
-          isSigner: true;
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challenge';
-          isMut: true;
-          isSigner: false;
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
-        },
-      ];
-      args: [
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
         {
-          name: 'params';
-          type: {
-            defined: 'CancelChallengeParams';
-          };
-        },
-      ];
+          "name": "params",
+          "type": {
+            "defined": "CancelChallengeParams"
+          }
+        }
+      ]
     },
     {
-      name: 'transferAssetsToVault';
-      accounts: [
+      "name": "transferAssetsToVault",
+      "accounts": [
         {
-          name: 'signer';
-          isMut: true;
-          isSigner: true;
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'mintAccount';
-          isMut: false;
-          isSigner: false;
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'signerTokenAccount';
-          isMut: true;
-          isSigner: false;
+          "name": "signerTokenAccount",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challenge';
-          isMut: true;
-          isSigner: false;
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challengeTokenVault';
-          isMut: true;
-          isSigner: false;
+          "name": "challengeTokenVault",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'tokenProgram';
-          isMut: false;
-          isSigner: false;
-        },
-      ];
-      args: [
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
         {
-          name: 'params';
-          type: {
-            defined: 'TransferAssetsToVaultParams';
-          };
-        },
-      ];
+          "name": "params",
+          "type": {
+            "defined": "TransferAssetsToVaultParams"
+          }
+        }
+      ]
     },
     {
-      name: 'transferAssetsFromVault';
-      accounts: [
+      "name": "transferAssetsFromVault",
+      "accounts": [
         {
-          name: 'signer';
-          isMut: true;
-          isSigner: true;
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'mintAccount';
-          isMut: false;
-          isSigner: false;
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'challengeRegistry';
-          isMut: false;
-          isSigner: false;
+          "name": "challengeRegistry",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'signerTokenAccount';
-          isMut: true;
-          isSigner: false;
+          "name": "signerTokenAccount",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challenge';
-          isMut: true;
-          isSigner: false;
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challengeTokenVault';
-          isMut: true;
-          isSigner: false;
+          "name": "challengeTokenVault",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'tokenProgram';
-          isMut: false;
-          isSigner: false;
-        },
-      ];
-      args: [
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
         {
-          name: 'params';
-          type: {
-            defined: 'TransferAssetsFromVaultParams';
-          };
-        },
-      ];
+          "name": "params",
+          "type": {
+            "defined": "TransferAssetsFromVaultParams"
+          }
+        }
+      ]
     },
     {
-      name: 'submitWinnerList';
-      accounts: [
+      "name": "submitWinnerList",
+      "accounts": [
         {
-          name: 'signer';
-          isMut: true;
-          isSigner: true;
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challengeRegistry';
-          isMut: false;
-          isSigner: false;
+          "name": "challengeRegistry",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'challenge';
-          isMut: true;
-          isSigner: false;
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram';
-          isMut: false;
-          isSigner: false;
-        },
-      ];
-      args: [
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
         {
-          name: 'params';
-          type: {
-            defined: 'SubmitWinnersParams';
-          };
-        },
-      ];
-    },
-  ];
-  accounts: [
+          "name": "params",
+          "type": {
+            "defined": "SubmitWinnersParams"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
     {
-      name: 'challengePlatformRegistry';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "challengePlatformRegistry",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'owner';
-            type: 'publicKey';
+            "name": "owner",
+            "type": "publicKey"
           },
           {
-            name: 'wasInitialized';
-            type: 'bool';
+            "name": "wasInitialized",
+            "type": "bool"
           },
           {
-            name: 'bump';
-            type: 'u8';
+            "name": "bump",
+            "type": "u8"
           },
           {
-            name: 'allowedAdministrators';
-            type: {
-              vec: 'publicKey';
-            };
+            "name": "allowedAdministrators",
+            "type": {
+              "vec": "publicKey"
+            }
           },
           {
-            name: 'allowedMintAccounts';
-            type: {
-              vec: {
-                defined: 'MintInfo';
-              };
-            };
-          },
-        ];
-      };
-    },
-    {
-      name: 'challenge';
-      type: {
-        kind: 'struct';
-        fields: [
-          {
-            name: 'id';
-            type: 'string';
-          },
-          {
-            name: 'bump';
-            type: 'u8';
-          },
-          {
-            name: 'owner';
-            type: 'publicKey';
-          },
-          {
-            name: 'minDeposit';
-            type: 'u64';
-          },
-          {
-            name: 'players';
-            type: {
-              vec: {
-                defined: 'PlayerInfo';
-              };
-            };
-          },
-          {
-            name: 'prizePool';
-            type: 'u64';
-          },
-          {
-            name: 'donatePool';
-            type: 'u64';
-          },
-          {
-            name: 'rewardTokenMintAccount';
-            type: 'publicKey';
-          },
-          {
-            name: 'status';
-            type: {
-              defined: 'ChallengeStatus';
-            };
-          },
-        ];
-      };
-    },
-  ];
-  types: [
-    {
-      name: 'CancelChallengeParams';
-      type: {
-        kind: 'struct';
-        fields: [
-          {
-            name: 'id';
-            type: 'string';
-          },
-        ];
-      };
+            "name": "allowedMintAccounts",
+            "type": {
+              "vec": {
+                "defined": "MintInfo"
+              }
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'CreateChallengeParams';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "challenge",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'id';
-            type: 'string';
+            "name": "id",
+            "type": "string"
           },
           {
-            name: 'minDeposit';
-            type: 'u64';
+            "name": "bump",
+            "type": "u8"
           },
           {
-            name: 'rewardTokenMintAccount';
-            type: 'publicKey';
+            "name": "owner",
+            "type": "publicKey"
           },
-        ];
-      };
+          {
+            "name": "minDeposit",
+            "type": "u64"
+          },
+          {
+            "name": "players",
+            "type": {
+              "vec": {
+                "defined": "PlayerInfo"
+              }
+            }
+          },
+          {
+            "name": "prizePool",
+            "type": "u64"
+          },
+          {
+            "name": "donatePool",
+            "type": "u64"
+          },
+          {
+            "name": "rewardTokenMintAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": "ChallengeStatus"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "CancelChallengeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
-      name: 'InitializeChallengePlatformParams';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "CreateChallengeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'allowedMintAccounts';
-            type: {
-              vec: {
-                defined: 'MintInfo';
-              };
-            };
+            "name": "id",
+            "type": "string"
           },
           {
-            name: 'allowedAdministrators';
-            type: {
-              vec: 'publicKey';
-            };
+            "name": "minDeposit",
+            "type": "u64"
           },
-        ];
-      };
+          {
+            "name": "rewardTokenMintAccount",
+            "type": "publicKey"
+          }
+        ]
+      }
     },
     {
-      name: 'SubmitWinnersParams';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "InitializeChallengePlatformParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'id';
-            type: 'string';
+            "name": "allowedMintAccounts",
+            "type": {
+              "vec": {
+                "defined": "MintInfo"
+              }
+            }
           },
           {
-            name: 'winnerList';
-            type: {
-              vec: 'publicKey';
-            };
-          },
-        ];
-      };
+            "name": "allowedAdministrators",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'TransferAssetsFromVaultParams';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "SubmitWinnersParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'challengeTokenVaultBump';
-            type: 'u8';
+            "name": "id",
+            "type": "string"
           },
           {
-            name: 'challengeId';
-            type: 'string';
-          },
-          {
-            name: 'actionType';
-            type: {
-              defined: 'TransferAssetsFromVaultActionType';
-            };
-          },
-        ];
-      };
+            "name": "winnerList",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'TransferAssetsToVaultParams';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "TransferAssetsFromVaultParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'challengeTokenVaultBump';
-            type: 'u8';
+            "name": "challengeTokenVaultBump",
+            "type": "u8"
           },
           {
-            name: 'challengeId';
-            type: 'string';
+            "name": "challengeId",
+            "type": "string"
           },
           {
-            name: 'actionType';
-            type: {
-              defined: 'TransferAssetsToVaultActionType';
-            };
-          },
-          {
-            name: 'amount';
-            type: 'u64';
-          },
-        ];
-      };
+            "name": "actionType",
+            "type": {
+              "defined": "TransferAssetsFromVaultActionType"
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'UpdateChallengePlatformParams';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "TransferAssetsToVaultParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'allowedMintAccounts';
-            type: {
-              vec: {
-                defined: 'MintInfo';
-              };
-            };
+            "name": "challengeTokenVaultBump",
+            "type": "u8"
           },
           {
-            name: 'allowedAdministrators';
-            type: {
-              vec: 'publicKey';
-            };
+            "name": "challengeId",
+            "type": "string"
           },
-        ];
-      };
+          {
+            "name": "actionType",
+            "type": {
+              "defined": "TransferAssetsToVaultActionType"
+            }
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
     },
     {
-      name: 'MintInfo';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "UpdateChallengePlatformParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'isEnabled';
-            type: 'bool';
+            "name": "allowedMintAccounts",
+            "type": {
+              "vec": {
+                "defined": "MintInfo"
+              }
+            }
           },
           {
-            name: 'bump';
-            type: 'u8';
-          },
-          {
-            name: 'mintAccount';
-            type: 'publicKey';
-          },
-          {
-            name: 'tokenAccount';
-            type: 'publicKey';
-          },
-        ];
-      };
+            "name": "allowedAdministrators",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'PlayerInfo';
-      type: {
-        kind: 'struct';
-        fields: [
+      "name": "MintInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'publicKey';
-            type: 'publicKey';
+            "name": "isEnabled",
+            "type": "bool"
           },
           {
-            name: 'totalDeposit';
-            type: 'u64';
+            "name": "bump",
+            "type": "u8"
           },
           {
-            name: 'isWinner';
-            type: 'bool';
+            "name": "mintAccount",
+            "type": "publicKey"
           },
           {
-            name: 'isWinnerClaimedReward';
-            type: 'bool';
-          },
-          {
-            name: 'isPlayerWithdrawn';
-            type: 'bool';
-          },
-        ];
-      };
+            "name": "tokenAccount",
+            "type": "publicKey"
+          }
+        ]
+      }
     },
     {
-      name: 'TransferAssetsFromVaultActionType';
-      type: {
-        kind: 'enum';
-        variants: [
+      "name": "PlayerInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'Claiming';
+            "name": "publicKey",
+            "type": "publicKey"
           },
           {
-            name: 'Withdrawing';
+            "name": "totalDeposit",
+            "type": "u64"
           },
           {
-            name: 'AdminWithdrawingDonatePool';
+            "name": "isWinner",
+            "type": "bool"
           },
-        ];
-      };
+          {
+            "name": "isWinnerClaimedReward",
+            "type": "bool"
+          },
+          {
+            "name": "isPlayerWithdrawn",
+            "type": "bool"
+          }
+        ]
+      }
     },
     {
-      name: 'TransferAssetsToVaultActionType';
-      type: {
-        kind: 'enum';
-        variants: [
+      "name": "TransferAssetsFromVaultActionType",
+      "type": {
+        "kind": "enum",
+        "variants": [
           {
-            name: 'JoinChallenge';
+            "name": "Claiming"
           },
           {
-            name: 'Donate';
+            "name": "Withdrawing"
           },
-        ];
-      };
+          {
+            "name": "AdminWithdrawingDonatePool"
+          }
+        ]
+      }
     },
     {
-      name: 'ChallengeStatus';
-      type: {
-        kind: 'enum';
-        variants: [
+      "name": "TransferAssetsToVaultActionType",
+      "type": {
+        "kind": "enum",
+        "variants": [
           {
-            name: 'Created';
+            "name": "JoinChallenge"
           },
           {
-            name: 'Finalized';
-          },
-          {
-            name: 'Canceled';
-          },
-        ];
-      };
+            "name": "Donate"
+          }
+        ]
+      }
     },
-  ];
-  events: [
     {
-      name: 'ChallengeRegistryUpdated';
-      fields: [
+      "name": "ChallengeStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Created"
+          },
+          {
+            "name": "Finalized"
+          },
+          {
+            "name": "Canceled"
+          },
+          {
+            "name": "Claimed"
+          },
+          {
+            "name": "Withdrawn"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "ChallengeRegistryUpdated",
+      "fields": [
         {
-          name: 'actor';
-          type: 'publicKey';
-          index: true;
-        },
-        {
-          name: 'allowedAdministrators';
-          type: {
-            vec: 'publicKey';
-          };
-          index: false;
-        },
-        {
-          name: 'allowedMintAccounts';
-          type: {
-            vec: {
-              defined: 'MintInfo';
-            };
-          };
-          index: false;
-        },
-      ];
-    },
-    {
-      name: 'VaultCreated';
-      fields: [
-        {
-          name: 'actor';
-          type: 'publicKey';
-          index: true;
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'authority';
-          type: 'publicKey';
-          index: true;
+          "name": "allowedAdministrators",
+          "type": {
+            "vec": "publicKey"
+          },
+          "index": false
         },
         {
-          name: 'mintAccount';
-          type: 'publicKey';
-          index: true;
-        },
-        {
-          name: 'associatedAccount';
-          type: 'publicKey';
-          index: true;
-        },
-      ];
+          "name": "allowedMintAccounts",
+          "type": {
+            "vec": {
+              "defined": "MintInfo"
+            }
+          },
+          "index": false
+        }
+      ]
     },
     {
-      name: 'ChallengeCreated';
-      fields: [
+      "name": "VaultCreated",
+      "fields": [
         {
-          name: 'actor';
-          type: 'publicKey';
-          index: true;
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey';
-          type: 'publicKey';
-          index: true;
+          "name": "authority",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'id';
-          type: 'string';
-          index: true;
+          "name": "mintAccount",
+          "type": "publicKey",
+          "index": true
         },
-      ];
+        {
+          "name": "associatedAccount",
+          "type": "publicKey",
+          "index": true
+        }
+      ]
     },
     {
-      name: 'ChallengeFinalized';
-      fields: [
+      "name": "ChallengeCreated",
+      "fields": [
         {
-          name: 'actor';
-          type: 'publicKey';
-          index: true;
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey';
-          type: 'publicKey';
-          index: true;
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'id';
-          type: 'string';
-          index: true;
-        },
-        {
-          name: 'status';
-          type: {
-            defined: 'ChallengeStatus';
-          };
-          index: false;
-        },
-      ];
+          "name": "id",
+          "type": "string",
+          "index": true
+        }
+      ]
     },
     {
-      name: 'ChallengeCanceled';
-      fields: [
+      "name": "ChallengeFinalized",
+      "fields": [
         {
-          name: 'actor';
-          type: 'publicKey';
-          index: true;
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey';
-          type: 'publicKey';
-          index: true;
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'id';
-          type: 'string';
-          index: true;
+          "name": "id",
+          "type": "string",
+          "index": true
         },
         {
-          name: 'status';
-          type: {
-            defined: 'ChallengeStatus';
-          };
-          index: false;
-        },
-      ];
+          "name": "status",
+          "type": {
+            "defined": "ChallengeStatus"
+          },
+          "index": false
+        }
+      ]
     },
     {
-      name: 'RewardReceived';
-      fields: [
+      "name": "ChallengeCanceled",
+      "fields": [
         {
-          name: 'actor';
-          type: 'publicKey';
-          index: true;
-        },
-        {
-          name: 'challengeKey';
-          type: 'publicKey';
-          index: true;
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeId';
-          type: 'string';
-          index: true;
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'rewardMintToken';
-          type: 'publicKey';
-          index: true;
+          "name": "id",
+          "type": "string",
+          "index": true
         },
         {
-          name: 'actionType';
-          type: {
-            defined: 'TransferAssetsToVaultActionType';
-          };
-          index: false;
+          "name": "status",
+          "type": {
+            "defined": "ChallengeStatus"
+          },
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "RewardReceived",
+      "fields": [
+        {
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'amount';
-          type: 'u64';
-          index: false;
-        },
-      ];
-    },
-    {
-      name: 'RewardClaimed';
-      fields: [
-        {
-          name: 'actor';
-          type: 'publicKey';
-          index: true;
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey';
-          type: 'publicKey';
-          index: true;
+          "name": "challengeId",
+          "type": "string",
+          "index": true
         },
         {
-          name: 'challengeId';
-          type: 'string';
-          index: true;
+          "name": "rewardMintToken",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'rewardMintToken';
-          type: 'publicKey';
-          index: true;
+          "name": "actionType",
+          "type": {
+            "defined": "TransferAssetsToVaultActionType"
+          },
+          "index": false
         },
         {
-          name: 'actionType';
-          type: {
-            defined: 'TransferAssetsFromVaultActionType';
-          };
-          index: false;
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "RewardClaimed",
+      "fields": [
+        {
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'amount';
-          type: 'u64';
-          index: false;
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
-      ];
-    },
-  ];
-  errors: [
+        {
+          "name": "challengeId",
+          "type": "string",
+          "index": true
+        },
+        {
+          "name": "rewardMintToken",
+          "type": "publicKey",
+          "index": true
+        },
+        {
+          "name": "actionType",
+          "type": {
+            "defined": "TransferAssetsFromVaultActionType"
+          },
+          "index": false
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
     {
-      code: 6000;
-      name: 'AlreadyInitialized';
-      msg: 'The program was already initialized';
-    },
-    {
-      code: 6001;
-      name: 'MintAccountExisted';
-      msg: 'The mint account was existed';
-    },
-    {
-      code: 6002;
-      name: 'OnlyAdministrator';
-      msg: 'Only Platform Admin';
-    },
-    {
-      code: 6003;
-      name: 'OnlyOwner';
-      msg: 'Only Owner';
-    },
-    {
-      code: 6004;
-      name: 'OrderExpired';
-      msg: 'Order expired';
-    },
-    {
-      code: 6005;
-      name: 'InvalidOffer';
-      msg: 'Invalid Offer';
+      "code": 6000,
+      "name": "AlreadyInitialized",
+      "msg": "The program was already initialized"
     },
     {
-      code: 6006;
-      name: 'InvalidValue';
-      msg: 'Invalid value';
+      "code": 6001,
+      "name": "MintAccountExisted",
+      "msg": "The mint account was existed"
     },
     {
-      code: 6007;
-      name: 'UnAllowedMintToken';
-      msg: 'Invalid value';
+      "code": 6002,
+      "name": "OnlyAdministrator",
+      "msg": "Only Platform Admin"
     },
     {
-      code: 6008;
-      name: 'ChallengeCannotBeCanceled';
-      msg: 'Challenge cannot be canceled';
+      "code": 6003,
+      "name": "OnlyOwner",
+      "msg": "Only Owner"
     },
     {
-      code: 6009;
-      name: 'WithdrawalIsNotAvailable';
-      msg: 'Withdrawal is not available for the challenge';
+      "code": 6004,
+      "name": "OrderExpired",
+      "msg": "Order expired"
     },
     {
-      code: 6010;
-      name: 'ClaimIsNotAvailable';
-      msg: 'Claim is not available for the challenge';
+      "code": 6005,
+      "name": "InvalidOffer",
+      "msg": "Invalid Offer"
     },
     {
-      code: 6011;
-      name: 'TransferTokenFromVaultIsNotAvailable';
-      msg: 'Transfer token from vault is not available for the challenge';
+      "code": 6006,
+      "name": "InvalidValue",
+      "msg": "Invalid value"
     },
     {
-      code: 6012;
-      name: 'DepositIsNotAvailable';
-      msg: 'Deposit is not available for the challenge';
+      "code": 6007,
+      "name": "UnAllowedMintToken",
+      "msg": "Invalid value"
     },
     {
-      code: 6013;
-      name: 'OnlyParticipant';
-      msg: 'Only participants can execute this operation';
+      "code": 6008,
+      "name": "ChallengeCannotBeCanceled",
+      "msg": "Challenge cannot be canceled"
     },
     {
-      code: 6014;
-      name: 'AlreadyParticipated';
-      msg: 'The participant already participated in the challenge.';
+      "code": 6009,
+      "name": "WithdrawalIsNotAvailable",
+      "msg": "Withdrawal is not available for the challenge"
     },
     {
-      code: 6015;
-      name: 'MinDepositIsNotReached';
-      msg: 'Min deposit amount is not reached';
+      "code": 6010,
+      "name": "ClaimIsNotAvailable",
+      "msg": "Claim is not available for the challenge"
     },
-  ];
+    {
+      "code": 6011,
+      "name": "TransferTokenFromVaultIsNotAvailable",
+      "msg": "Transfer token from vault is not available for the challenge"
+    },
+    {
+      "code": 6012,
+      "name": "DepositIsNotAvailable",
+      "msg": "Deposit is not available for the challenge"
+    },
+    {
+      "code": 6013,
+      "name": "OnlyParticipant",
+      "msg": "Only participants can execute this operation"
+    },
+    {
+      "code": 6014,
+      "name": "AlreadyParticipated",
+      "msg": "The participant already participated in the challenge."
+    },
+    {
+      "code": 6015,
+      "name": "MinDepositIsNotReached",
+      "msg": "Min deposit amount is not reached"
+    }
+  ]
 };
 
 export const IDL: Challenge = {
-  version: '0.1.0',
-  name: 'challenge',
-  instructions: [
+  "version": "0.1.0",
+  "name": "challenge",
+  "instructions": [
     {
-      name: 'initialize',
-      accounts: [
+      "name": "initialize",
+      "accounts": [
         {
-          name: 'owner',
-          isMut: true,
-          isSigner: true,
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challengeRegistry',
-          isMut: true,
-          isSigner: false,
+          "name": "challengeRegistry",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram',
-          isMut: false,
-          isSigner: false,
-        },
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
       ],
-      args: [
+      "args": [
         {
-          name: 'params',
-          type: {
-            defined: 'InitializeChallengePlatformParams',
-          },
-        },
-      ],
+          "name": "params",
+          "type": {
+            "defined": "InitializeChallengePlatformParams"
+          }
+        }
+      ]
     },
     {
-      name: 'updateChallengeRegistry',
-      accounts: [
+      "name": "updateChallengeRegistry",
+      "accounts": [
         {
-          name: 'owner',
-          isMut: true,
-          isSigner: true,
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challengeRegistry',
-          isMut: true,
-          isSigner: false,
+          "name": "challengeRegistry",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram',
-          isMut: false,
-          isSigner: false,
-        },
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
       ],
-      args: [
+      "args": [
         {
-          name: 'params',
-          type: {
-            defined: 'UpdateChallengePlatformParams',
-          },
-        },
-      ],
+          "name": "params",
+          "type": {
+            "defined": "UpdateChallengePlatformParams"
+          }
+        }
+      ]
     },
     {
-      name: 'createTokenVault',
-      accounts: [
+      "name": "createTokenVault",
+      "accounts": [
         {
-          name: 'signer',
-          isMut: true,
-          isSigner: true,
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challengeRegistry',
-          isMut: true,
-          isSigner: false,
+          "name": "challengeRegistry",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'mintAccount',
-          isMut: false,
-          isSigner: false,
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'challengeTokenVault',
-          isMut: true,
-          isSigner: false,
+          "name": "challengeTokenVault",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram',
-          isMut: false,
-          isSigner: false,
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'tokenProgram',
-          isMut: false,
-          isSigner: false,
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'rent',
-          isMut: false,
-          isSigner: false,
-        },
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
       ],
-      args: [],
+      "args": []
     },
     {
-      name: 'createChallenge',
-      accounts: [
+      "name": "createChallenge",
+      "accounts": [
         {
-          name: 'challengeOwner',
-          isMut: true,
-          isSigner: true,
+          "name": "challengeOwner",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challenge',
-          isMut: true,
-          isSigner: false,
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challengeRegistry',
-          isMut: false,
-          isSigner: false,
+          "name": "challengeRegistry",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'systemProgram',
-          isMut: false,
-          isSigner: false,
-        },
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
       ],
-      args: [
+      "args": [
         {
-          name: 'params',
-          type: {
-            defined: 'CreateChallengeParams',
-          },
-        },
-      ],
+          "name": "params",
+          "type": {
+            "defined": "CreateChallengeParams"
+          }
+        }
+      ]
     },
     {
-      name: 'cancelChallenge',
-      accounts: [
+      "name": "cancelChallenge",
+      "accounts": [
         {
-          name: 'signer',
-          isMut: true,
-          isSigner: true,
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challenge',
-          isMut: true,
-          isSigner: false,
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram',
-          isMut: false,
-          isSigner: false,
-        },
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
       ],
-      args: [
+      "args": [
         {
-          name: 'params',
-          type: {
-            defined: 'CancelChallengeParams',
-          },
-        },
-      ],
+          "name": "params",
+          "type": {
+            "defined": "CancelChallengeParams"
+          }
+        }
+      ]
     },
     {
-      name: 'transferAssetsToVault',
-      accounts: [
+      "name": "transferAssetsToVault",
+      "accounts": [
         {
-          name: 'signer',
-          isMut: true,
-          isSigner: true,
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'mintAccount',
-          isMut: false,
-          isSigner: false,
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'signerTokenAccount',
-          isMut: true,
-          isSigner: false,
+          "name": "signerTokenAccount",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challenge',
-          isMut: true,
-          isSigner: false,
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challengeTokenVault',
-          isMut: true,
-          isSigner: false,
+          "name": "challengeTokenVault",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram',
-          isMut: false,
-          isSigner: false,
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'tokenProgram',
-          isMut: false,
-          isSigner: false,
-        },
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
       ],
-      args: [
+      "args": [
         {
-          name: 'params',
-          type: {
-            defined: 'TransferAssetsToVaultParams',
-          },
-        },
-      ],
+          "name": "params",
+          "type": {
+            "defined": "TransferAssetsToVaultParams"
+          }
+        }
+      ]
     },
     {
-      name: 'transferAssetsFromVault',
-      accounts: [
+      "name": "transferAssetsFromVault",
+      "accounts": [
         {
-          name: 'signer',
-          isMut: true,
-          isSigner: true,
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'mintAccount',
-          isMut: false,
-          isSigner: false,
+          "name": "mintAccount",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'challengeRegistry',
-          isMut: false,
-          isSigner: false,
+          "name": "challengeRegistry",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'signerTokenAccount',
-          isMut: true,
-          isSigner: false,
+          "name": "signerTokenAccount",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challenge',
-          isMut: true,
-          isSigner: false,
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'challengeTokenVault',
-          isMut: true,
-          isSigner: false,
+          "name": "challengeTokenVault",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram',
-          isMut: false,
-          isSigner: false,
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'tokenProgram',
-          isMut: false,
-          isSigner: false,
-        },
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
       ],
-      args: [
+      "args": [
         {
-          name: 'params',
-          type: {
-            defined: 'TransferAssetsFromVaultParams',
-          },
-        },
-      ],
+          "name": "params",
+          "type": {
+            "defined": "TransferAssetsFromVaultParams"
+          }
+        }
+      ]
     },
     {
-      name: 'submitWinnerList',
-      accounts: [
+      "name": "submitWinnerList",
+      "accounts": [
         {
-          name: 'signer',
-          isMut: true,
-          isSigner: true,
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
         },
         {
-          name: 'challengeRegistry',
-          isMut: false,
-          isSigner: false,
+          "name": "challengeRegistry",
+          "isMut": false,
+          "isSigner": false
         },
         {
-          name: 'challenge',
-          isMut: true,
-          isSigner: false,
+          "name": "challenge",
+          "isMut": true,
+          "isSigner": false
         },
         {
-          name: 'systemProgram',
-          isMut: false,
-          isSigner: false,
-        },
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
       ],
-      args: [
+      "args": [
         {
-          name: 'params',
-          type: {
-            defined: 'SubmitWinnersParams',
-          },
-        },
-      ],
-    },
+          "name": "params",
+          "type": {
+            "defined": "SubmitWinnersParams"
+          }
+        }
+      ]
+    }
   ],
-  accounts: [
+  "accounts": [
     {
-      name: 'challengePlatformRegistry',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "challengePlatformRegistry",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'owner',
-            type: 'publicKey',
+            "name": "owner",
+            "type": "publicKey"
           },
           {
-            name: 'wasInitialized',
-            type: 'bool',
+            "name": "wasInitialized",
+            "type": "bool"
           },
           {
-            name: 'bump',
-            type: 'u8',
+            "name": "bump",
+            "type": "u8"
           },
           {
-            name: 'allowedAdministrators',
-            type: {
-              vec: 'publicKey',
-            },
+            "name": "allowedAdministrators",
+            "type": {
+              "vec": "publicKey"
+            }
           },
           {
-            name: 'allowedMintAccounts',
-            type: {
-              vec: {
-                defined: 'MintInfo',
-              },
-            },
-          },
-        ],
-      },
+            "name": "allowedMintAccounts",
+            "type": {
+              "vec": {
+                "defined": "MintInfo"
+              }
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'challenge',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "challenge",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'id',
-            type: 'string',
+            "name": "id",
+            "type": "string"
           },
           {
-            name: 'bump',
-            type: 'u8',
+            "name": "bump",
+            "type": "u8"
           },
           {
-            name: 'owner',
-            type: 'publicKey',
+            "name": "owner",
+            "type": "publicKey"
           },
           {
-            name: 'minDeposit',
-            type: 'u64',
+            "name": "minDeposit",
+            "type": "u64"
           },
           {
-            name: 'players',
-            type: {
-              vec: {
-                defined: 'PlayerInfo',
-              },
-            },
+            "name": "players",
+            "type": {
+              "vec": {
+                "defined": "PlayerInfo"
+              }
+            }
           },
           {
-            name: 'prizePool',
-            type: 'u64',
+            "name": "prizePool",
+            "type": "u64"
           },
           {
-            name: 'donatePool',
-            type: 'u64',
+            "name": "donatePool",
+            "type": "u64"
           },
           {
-            name: 'rewardTokenMintAccount',
-            type: 'publicKey',
+            "name": "rewardTokenMintAccount",
+            "type": "publicKey"
           },
           {
-            name: 'status',
-            type: {
-              defined: 'ChallengeStatus',
-            },
-          },
-        ],
-      },
-    },
+            "name": "status",
+            "type": {
+              "defined": "ChallengeStatus"
+            }
+          }
+        ]
+      }
+    }
   ],
-  types: [
+  "types": [
     {
-      name: 'CancelChallengeParams',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "CancelChallengeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'id',
-            type: 'string',
-          },
-        ],
-      },
+            "name": "id",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
-      name: 'CreateChallengeParams',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "CreateChallengeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'id',
-            type: 'string',
+            "name": "id",
+            "type": "string"
           },
           {
-            name: 'minDeposit',
-            type: 'u64',
+            "name": "minDeposit",
+            "type": "u64"
           },
           {
-            name: 'rewardTokenMintAccount',
-            type: 'publicKey',
-          },
-        ],
-      },
+            "name": "rewardTokenMintAccount",
+            "type": "publicKey"
+          }
+        ]
+      }
     },
     {
-      name: 'InitializeChallengePlatformParams',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "InitializeChallengePlatformParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'allowedMintAccounts',
-            type: {
-              vec: {
-                defined: 'MintInfo',
-              },
-            },
+            "name": "allowedMintAccounts",
+            "type": {
+              "vec": {
+                "defined": "MintInfo"
+              }
+            }
           },
           {
-            name: 'allowedAdministrators',
-            type: {
-              vec: 'publicKey',
-            },
-          },
-        ],
-      },
+            "name": "allowedAdministrators",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'SubmitWinnersParams',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "SubmitWinnersParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'id',
-            type: 'string',
+            "name": "id",
+            "type": "string"
           },
           {
-            name: 'winnerList',
-            type: {
-              vec: 'publicKey',
-            },
-          },
-        ],
-      },
+            "name": "winnerList",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'TransferAssetsFromVaultParams',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "TransferAssetsFromVaultParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'challengeTokenVaultBump',
-            type: 'u8',
+            "name": "challengeTokenVaultBump",
+            "type": "u8"
           },
           {
-            name: 'challengeId',
-            type: 'string',
+            "name": "challengeId",
+            "type": "string"
           },
           {
-            name: 'actionType',
-            type: {
-              defined: 'TransferAssetsFromVaultActionType',
-            },
-          },
-        ],
-      },
+            "name": "actionType",
+            "type": {
+              "defined": "TransferAssetsFromVaultActionType"
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'TransferAssetsToVaultParams',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "TransferAssetsToVaultParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'challengeTokenVaultBump',
-            type: 'u8',
+            "name": "challengeTokenVaultBump",
+            "type": "u8"
           },
           {
-            name: 'challengeId',
-            type: 'string',
+            "name": "challengeId",
+            "type": "string"
           },
           {
-            name: 'actionType',
-            type: {
-              defined: 'TransferAssetsToVaultActionType',
-            },
+            "name": "actionType",
+            "type": {
+              "defined": "TransferAssetsToVaultActionType"
+            }
           },
           {
-            name: 'amount',
-            type: 'u64',
-          },
-        ],
-      },
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
     },
     {
-      name: 'UpdateChallengePlatformParams',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "UpdateChallengePlatformParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'allowedMintAccounts',
-            type: {
-              vec: {
-                defined: 'MintInfo',
-              },
-            },
+            "name": "allowedMintAccounts",
+            "type": {
+              "vec": {
+                "defined": "MintInfo"
+              }
+            }
           },
           {
-            name: 'allowedAdministrators',
-            type: {
-              vec: 'publicKey',
-            },
-          },
-        ],
-      },
+            "name": "allowedAdministrators",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'MintInfo',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "MintInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'isEnabled',
-            type: 'bool',
+            "name": "isEnabled",
+            "type": "bool"
           },
           {
-            name: 'bump',
-            type: 'u8',
+            "name": "bump",
+            "type": "u8"
           },
           {
-            name: 'mintAccount',
-            type: 'publicKey',
+            "name": "mintAccount",
+            "type": "publicKey"
           },
           {
-            name: 'tokenAccount',
-            type: 'publicKey',
-          },
-        ],
-      },
+            "name": "tokenAccount",
+            "type": "publicKey"
+          }
+        ]
+      }
     },
     {
-      name: 'PlayerInfo',
-      type: {
-        kind: 'struct',
-        fields: [
+      "name": "PlayerInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
           {
-            name: 'publicKey',
-            type: 'publicKey',
+            "name": "publicKey",
+            "type": "publicKey"
           },
           {
-            name: 'totalDeposit',
-            type: 'u64',
+            "name": "totalDeposit",
+            "type": "u64"
           },
           {
-            name: 'isWinner',
-            type: 'bool',
+            "name": "isWinner",
+            "type": "bool"
           },
           {
-            name: 'isWinnerClaimedReward',
-            type: 'bool',
+            "name": "isWinnerClaimedReward",
+            "type": "bool"
           },
           {
-            name: 'isPlayerWithdrawn',
-            type: 'bool',
-          },
-        ],
-      },
+            "name": "isPlayerWithdrawn",
+            "type": "bool"
+          }
+        ]
+      }
     },
     {
-      name: 'TransferAssetsFromVaultActionType',
-      type: {
-        kind: 'enum',
-        variants: [
+      "name": "TransferAssetsFromVaultActionType",
+      "type": {
+        "kind": "enum",
+        "variants": [
           {
-            name: 'Claiming',
+            "name": "Claiming"
           },
           {
-            name: 'Withdrawing',
+            "name": "Withdrawing"
           },
           {
-            name: 'AdminWithdrawingDonatePool',
-          },
-        ],
-      },
+            "name": "AdminWithdrawingDonatePool"
+          }
+        ]
+      }
     },
     {
-      name: 'TransferAssetsToVaultActionType',
-      type: {
-        kind: 'enum',
-        variants: [
+      "name": "TransferAssetsToVaultActionType",
+      "type": {
+        "kind": "enum",
+        "variants": [
           {
-            name: 'JoinChallenge',
+            "name": "JoinChallenge"
           },
           {
-            name: 'Donate',
-          },
-        ],
-      },
+            "name": "Donate"
+          }
+        ]
+      }
     },
     {
-      name: 'ChallengeStatus',
-      type: {
-        kind: 'enum',
-        variants: [
+      "name": "ChallengeStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
           {
-            name: 'Created',
+            "name": "Created"
           },
           {
-            name: 'Finalized',
+            "name": "Finalized"
           },
           {
-            name: 'Canceled',
+            "name": "Canceled"
           },
-        ],
-      },
-    },
+          {
+            "name": "Claimed"
+          },
+          {
+            "name": "Withdrawn"
+          }
+        ]
+      }
+    }
   ],
-  events: [
+  "events": [
     {
-      name: 'ChallengeRegistryUpdated',
-      fields: [
+      "name": "ChallengeRegistryUpdated",
+      "fields": [
         {
-          name: 'actor',
-          type: 'publicKey',
-          index: true,
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'allowedAdministrators',
-          type: {
-            vec: 'publicKey',
+          "name": "allowedAdministrators",
+          "type": {
+            "vec": "publicKey"
           },
-          index: false,
+          "index": false
         },
         {
-          name: 'allowedMintAccounts',
-          type: {
-            vec: {
-              defined: 'MintInfo',
-            },
+          "name": "allowedMintAccounts",
+          "type": {
+            "vec": {
+              "defined": "MintInfo"
+            }
           },
-          index: false,
-        },
-      ],
+          "index": false
+        }
+      ]
     },
     {
-      name: 'VaultCreated',
-      fields: [
+      "name": "VaultCreated",
+      "fields": [
         {
-          name: 'actor',
-          type: 'publicKey',
-          index: true,
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'authority',
-          type: 'publicKey',
-          index: true,
+          "name": "authority",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'mintAccount',
-          type: 'publicKey',
-          index: true,
+          "name": "mintAccount",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'associatedAccount',
-          type: 'publicKey',
-          index: true,
-        },
-      ],
+          "name": "associatedAccount",
+          "type": "publicKey",
+          "index": true
+        }
+      ]
     },
     {
-      name: 'ChallengeCreated',
-      fields: [
+      "name": "ChallengeCreated",
+      "fields": [
         {
-          name: 'actor',
-          type: 'publicKey',
-          index: true,
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey',
-          type: 'publicKey',
-          index: true,
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'id',
-          type: 'string',
-          index: true,
-        },
-      ],
+          "name": "id",
+          "type": "string",
+          "index": true
+        }
+      ]
     },
     {
-      name: 'ChallengeFinalized',
-      fields: [
+      "name": "ChallengeFinalized",
+      "fields": [
         {
-          name: 'actor',
-          type: 'publicKey',
-          index: true,
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey',
-          type: 'publicKey',
-          index: true,
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'id',
-          type: 'string',
-          index: true,
+          "name": "id",
+          "type": "string",
+          "index": true
         },
         {
-          name: 'status',
-          type: {
-            defined: 'ChallengeStatus',
+          "name": "status",
+          "type": {
+            "defined": "ChallengeStatus"
           },
-          index: false,
-        },
-      ],
+          "index": false
+        }
+      ]
     },
     {
-      name: 'ChallengeCanceled',
-      fields: [
+      "name": "ChallengeCanceled",
+      "fields": [
         {
-          name: 'actor',
-          type: 'publicKey',
-          index: true,
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey',
-          type: 'publicKey',
-          index: true,
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'id',
-          type: 'string',
-          index: true,
+          "name": "id",
+          "type": "string",
+          "index": true
         },
         {
-          name: 'status',
-          type: {
-            defined: 'ChallengeStatus',
+          "name": "status",
+          "type": {
+            "defined": "ChallengeStatus"
           },
-          index: false,
-        },
-      ],
+          "index": false
+        }
+      ]
     },
     {
-      name: 'RewardReceived',
-      fields: [
+      "name": "RewardReceived",
+      "fields": [
         {
-          name: 'actor',
-          type: 'publicKey',
-          index: true,
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey',
-          type: 'publicKey',
-          index: true,
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeId',
-          type: 'string',
-          index: true,
+          "name": "challengeId",
+          "type": "string",
+          "index": true
         },
         {
-          name: 'rewardMintToken',
-          type: 'publicKey',
-          index: true,
+          "name": "rewardMintToken",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'actionType',
-          type: {
-            defined: 'TransferAssetsToVaultActionType',
+          "name": "actionType",
+          "type": {
+            "defined": "TransferAssetsToVaultActionType"
           },
-          index: false,
+          "index": false
         },
         {
-          name: 'amount',
-          type: 'u64',
-          index: false,
-        },
-      ],
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        }
+      ]
     },
     {
-      name: 'RewardClaimed',
-      fields: [
+      "name": "RewardClaimed",
+      "fields": [
         {
-          name: 'actor',
-          type: 'publicKey',
-          index: true,
+          "name": "actor",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeKey',
-          type: 'publicKey',
-          index: true,
+          "name": "challengeKey",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'challengeId',
-          type: 'string',
-          index: true,
+          "name": "challengeId",
+          "type": "string",
+          "index": true
         },
         {
-          name: 'rewardMintToken',
-          type: 'publicKey',
-          index: true,
+          "name": "rewardMintToken",
+          "type": "publicKey",
+          "index": true
         },
         {
-          name: 'actionType',
-          type: {
-            defined: 'TransferAssetsFromVaultActionType',
+          "name": "actionType",
+          "type": {
+            "defined": "TransferAssetsFromVaultActionType"
           },
-          index: false,
+          "index": false
         },
         {
-          name: 'amount',
-          type: 'u64',
-          index: false,
-        },
-      ],
-    },
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    }
   ],
-  errors: [
+  "errors": [
     {
-      code: 6000,
-      name: 'AlreadyInitialized',
-      msg: 'The program was already initialized',
+      "code": 6000,
+      "name": "AlreadyInitialized",
+      "msg": "The program was already initialized"
     },
     {
-      code: 6001,
-      name: 'MintAccountExisted',
-      msg: 'The mint account was existed',
+      "code": 6001,
+      "name": "MintAccountExisted",
+      "msg": "The mint account was existed"
     },
     {
-      code: 6002,
-      name: 'OnlyAdministrator',
-      msg: 'Only Platform Admin',
+      "code": 6002,
+      "name": "OnlyAdministrator",
+      "msg": "Only Platform Admin"
     },
     {
-      code: 6003,
-      name: 'OnlyOwner',
-      msg: 'Only Owner',
+      "code": 6003,
+      "name": "OnlyOwner",
+      "msg": "Only Owner"
     },
     {
-      code: 6004,
-      name: 'OrderExpired',
-      msg: 'Order expired',
+      "code": 6004,
+      "name": "OrderExpired",
+      "msg": "Order expired"
     },
     {
-      code: 6005,
-      name: 'InvalidOffer',
-      msg: 'Invalid Offer',
+      "code": 6005,
+      "name": "InvalidOffer",
+      "msg": "Invalid Offer"
     },
     {
-      code: 6006,
-      name: 'InvalidValue',
-      msg: 'Invalid value',
+      "code": 6006,
+      "name": "InvalidValue",
+      "msg": "Invalid value"
     },
     {
-      code: 6007,
-      name: 'UnAllowedMintToken',
-      msg: 'Invalid value',
+      "code": 6007,
+      "name": "UnAllowedMintToken",
+      "msg": "Invalid value"
     },
     {
-      code: 6008,
-      name: 'ChallengeCannotBeCanceled',
-      msg: 'Challenge cannot be canceled',
+      "code": 6008,
+      "name": "ChallengeCannotBeCanceled",
+      "msg": "Challenge cannot be canceled"
     },
     {
-      code: 6009,
-      name: 'WithdrawalIsNotAvailable',
-      msg: 'Withdrawal is not available for the challenge',
+      "code": 6009,
+      "name": "WithdrawalIsNotAvailable",
+      "msg": "Withdrawal is not available for the challenge"
     },
     {
-      code: 6010,
-      name: 'ClaimIsNotAvailable',
-      msg: 'Claim is not available for the challenge',
+      "code": 6010,
+      "name": "ClaimIsNotAvailable",
+      "msg": "Claim is not available for the challenge"
     },
     {
-      code: 6011,
-      name: 'TransferTokenFromVaultIsNotAvailable',
-      msg: 'Transfer token from vault is not available for the challenge',
+      "code": 6011,
+      "name": "TransferTokenFromVaultIsNotAvailable",
+      "msg": "Transfer token from vault is not available for the challenge"
     },
     {
-      code: 6012,
-      name: 'DepositIsNotAvailable',
-      msg: 'Deposit is not available for the challenge',
+      "code": 6012,
+      "name": "DepositIsNotAvailable",
+      "msg": "Deposit is not available for the challenge"
     },
     {
-      code: 6013,
-      name: 'OnlyParticipant',
-      msg: 'Only participants can execute this operation',
+      "code": 6013,
+      "name": "OnlyParticipant",
+      "msg": "Only participants can execute this operation"
     },
     {
-      code: 6014,
-      name: 'AlreadyParticipated',
-      msg: 'The participant already participated in the challenge.',
+      "code": 6014,
+      "name": "AlreadyParticipated",
+      "msg": "The participant already participated in the challenge."
     },
     {
-      code: 6015,
-      name: 'MinDepositIsNotReached',
-      msg: 'Min deposit amount is not reached',
-    },
-  ],
+      "code": 6015,
+      "name": "MinDepositIsNotReached",
+      "msg": "Min deposit amount is not reached"
+    }
+  ]
 };
+
 
 export type MintInfo = Awaited<
   ReturnType<

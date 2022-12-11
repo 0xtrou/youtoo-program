@@ -1,6 +1,6 @@
 import * as anchor from '@project-serum/anchor';
 import { Program } from '@project-serum/anchor';
-import {Keypair, SendTransactionError, Transaction} from '@solana/web3.js';
+import { Keypair, SendTransactionError, Transaction } from '@solana/web3.js';
 import { expect } from 'chai';
 
 /**
