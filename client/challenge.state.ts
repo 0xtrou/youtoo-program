@@ -74,8 +74,9 @@ export class ChallengeProgramState {
     /**
      * @dev Extract mint account data from state.
      */
-    const [{ mintAccount, bump }]: [{ mintAccount: PublicKey; bump: number }] =
-      challengeRegistry.allowedMintAccounts as unknown as any;
+    const { mintAccount, bump }: { mintAccount: PublicKey; bump: number } = (
+      challengeRegistry.allowedMintAccounts as any[]
+    ).pop();
 
     /**
      * @dev Return the account.
