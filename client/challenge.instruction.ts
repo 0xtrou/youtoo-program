@@ -270,7 +270,7 @@ export class ChallengeInstructionBuilder {
       address: [signerTokenAccount],
     } = await this.pdaFinder.getTokenAccountOf(
       mintAccount,
-      this.program.provider.publicKey,
+      payload.signer,
     );
     const {
       address: [challengeRegistryPubkey],
@@ -327,7 +327,7 @@ export class ChallengeInstructionBuilder {
       address: [signerTokenAccount],
     } = await this.pdaFinder.getTokenAccountOf(
       mintAccount,
-      this.program.provider.publicKey,
+      payload.signer,
     );
 
     /**

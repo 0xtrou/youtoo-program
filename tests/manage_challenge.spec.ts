@@ -1,6 +1,6 @@
 import * as anchor from '@project-serum/anchor';
 import { BN, Program } from '@project-serum/anchor';
-import { Keypair, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import {Keypair, Transaction, LAMPORTS_PER_SOL, SendTransactionError} from '@solana/web3.js';
 import { expect } from 'chai';
 
 /**
@@ -119,7 +119,7 @@ describe('[manage_challenge]', async () => {
       ]);
       throw new Error('should fail here');
     } catch (e) {
-      expect(!!e).to.be.true;
+      expect(e instanceof SendTransactionError).to.be.true;
     }
   });
 
@@ -209,7 +209,7 @@ describe('[manage_challenge]', async () => {
       await workspace.provider.simulate(transaction);
       throw new Error('should fail here');
     } catch (e) {
-      expect(!!e).to.be.true;
+      expect(JSON.stringify(e).includes('InstructionError')).to.be.true;
     }
   });
 
@@ -241,7 +241,7 @@ describe('[manage_challenge]', async () => {
     try {
       await workspace.provider.simulate(transaction);
     } catch (e) {
-      expect(!!e).to.be.true;
+      expect(JSON.stringify(e).includes('InstructionError')).to.be.true;
     }
   });
 

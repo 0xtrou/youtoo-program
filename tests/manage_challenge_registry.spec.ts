@@ -1,6 +1,6 @@
 import * as anchor from '@project-serum/anchor';
 import { Program } from '@project-serum/anchor';
-import { Keypair, Transaction } from '@solana/web3.js';
+import {Keypair, SendTransactionError, Transaction} from '@solana/web3.js';
 import { expect } from 'chai';
 
 /**
@@ -40,7 +40,7 @@ describe('[initialize_challenge_registry]', async () => {
       await workspace.challengeState.getChallengeRegistry();
       throw new Error('should be failed here');
     } catch (e) {
-      expect(!!e).to.be.true;
+      expect(e.toString().includes('Error: Account does not exist')).to.be.true;
     }
   });
 
@@ -130,7 +130,7 @@ describe('[initialize_challenge_registry]', async () => {
 
       throw new Error('should be failed here');
     } catch (e) {
-      expect(!!e).to.be.true;
+      expect(e instanceof SendTransactionError).to.be.true;
     }
   });
 });

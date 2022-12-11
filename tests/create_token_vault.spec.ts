@@ -4,7 +4,7 @@ import {
   Keypair,
   Transaction,
   LAMPORTS_PER_SOL,
-  PublicKey,
+  PublicKey, SendTransactionError,
 } from '@solana/web3.js';
 import { expect } from 'chai';
 import { createMint } from '@solana/spl-token';
@@ -92,7 +92,7 @@ describe('[create_token_vault]', async () => {
       await workspace.provider.sendAndConfirm(transaction, [keypair]);
       throw new Error('should be failed');
     } catch (e) {
-      expect(!!e).to.be.true;
+      expect(e instanceof SendTransactionError).to.be.true;
     }
   });
 

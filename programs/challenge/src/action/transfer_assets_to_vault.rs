@@ -75,7 +75,7 @@ impl<'info> TransferAssetsToVaultContext<'info> {
         }
 
         // check whether the amount reaches minimum deposit or not
-        if !challenge.min_deposit <= params.amount {
+        if params.amount < challenge.min_deposit {
             return Err(ChallengeError::MinDepositIsNotReached.into());
         }
 
