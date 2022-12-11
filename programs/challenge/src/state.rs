@@ -256,7 +256,7 @@ impl Challenge {
     pub fn get_prize_for(&self, signer: Pubkey) -> Result<u64> {
         let player = self.players.clone()
             .into_iter()
-            .find(|player| player.public_key == signer)
+            .find(|player| player.public_key == signer && player.is_winner == true)
             .unwrap();
 
         if player.is_winner_claimed_reward {

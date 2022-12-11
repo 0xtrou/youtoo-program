@@ -36,8 +36,10 @@ impl<'info> SubmitWinnersContext<'info> {
         let challenge = &mut self.challenge;
 
         // require administrator permission or challenge owner
-        if !(self.challenge_registry.is_administrator(self.signer.key().clone()))
-            && !(self.signer.key().clone() != challenge.owner.key().clone()) {
+        if !(
+            self.challenge_registry.is_administrator(self.signer.key().clone())
+            || challenge.is_challenge_owner(self.signer.key().clone())
+        ) {
             return Err(ChallengeError::InvalidValue.into());
         }
 
@@ -47,10 +49,11 @@ impl<'info> SubmitWinnersContext<'info> {
         }
 
         // now we mutate the winner list
-        let _ = params.winner_list.into_iter().map(|winner| {
+        params.winner_list.into_iter().for_each(|winner| {
             let player = challenge.find_player_for_mutation(
                 winner
             ).unwrap();
+
             player.is_winner = true;
         });
 
