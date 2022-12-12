@@ -252,7 +252,7 @@ impl Challenge {
 
     // Define whether the signer is a winner
     pub fn is_winner(&self, signer: Pubkey) -> bool {
-        return return self.players.clone()
+        return self.players.clone()
             .into_iter()
             .filter(|player| (player.public_key == signer && player.is_winner == true))
             .count() == 1;
