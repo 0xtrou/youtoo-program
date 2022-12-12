@@ -318,7 +318,6 @@ describe('[cancel_challenge_and_withdraw_reward]', async () => {
   it('[withdraw_reward] should: players withdraw deposited token successfully', async () => {
     const state = await workspace.challengeState.getChallenge(challengeInfo.id);
 
-    console.log(state);
     /**
      * @dev Player 1 claim reward
      */
