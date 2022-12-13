@@ -31,7 +31,9 @@ const walletProvider = provider.wallet as anchor.Wallet;
 describe('[cancel_challenge_and_withdraw_reward]', async () => {
   let workspace: Awaited<ReturnType<typeof getWorkspace>>;
   const challengeOwnerKeypair = Keypair.generate();
+
   const administrator = Keypair.generate();
+  let administratorTokenAccount: Account;
 
   const donor = Keypair.generate();
   let donorTokenAccount: Account;
@@ -190,6 +192,16 @@ describe('[cancel_challenge_and_withdraw_reward]', async () => {
     );
 
     /**
+     * @dev Create token vault for admin withdrawal
+     */
+    administratorTokenAccount = await getOrCreateAssociatedTokenAccount(
+        workspace.connection,
+        administrator,
+        challengeInfo.rewardTokenMintAccount,
+        administrator.publicKey,
+    );
+
+    /**
      * @dev Add admin
      */
     const ins = await workspace.instructionBuilder.updateChallengeRegistry({
@@ -316,8 +328,6 @@ describe('[cancel_challenge_and_withdraw_reward]', async () => {
   });
 
   it('[withdraw_reward] should: players withdraw deposited token successfully', async () => {
-    const state = await workspace.challengeState.getChallenge(challengeInfo.id);
-
     /**
      * @dev Player 1 claim reward
      */
@@ -341,7 +351,7 @@ describe('[cancel_challenge_and_withdraw_reward]', async () => {
     ]);
 
     /**
-     * @dev Player 2 claim reward
+     * @dev Player 3 claim reward
      */
     const ins3 = await workspace.instructionBuilder.withdrawDepositedReward({
       challengeId: challengeInfo.id,
@@ -361,6 +371,11 @@ describe('[cancel_challenge_and_withdraw_reward]', async () => {
     await workspace.provider.sendAndConfirm(new Transaction().add(...ins4), [
       administrator,
     ]);
+
+    /**
+     * @dev Fetch state
+     */
+    const state = await workspace.challengeState.getChallenge(challengeInfo.id);
 
     /**
      * @dev Expect state changes
@@ -393,7 +408,7 @@ describe('[cancel_challenge_and_withdraw_reward]', async () => {
       player3.publicKey,
     );
 
-    const adminTokenAccount = await getOrCreateAssociatedTokenAccount(
+    administratorTokenAccount = await getOrCreateAssociatedTokenAccount(
       workspace.connection,
       administrator,
       challengeInfo.rewardTokenMintAccount,
@@ -424,6 +439,6 @@ describe('[cancel_challenge_and_withdraw_reward]', async () => {
     expect(Number(player2TokenAccount.amount)).eq(LAMPORTS_PER_SOL * 100);
     expect(Number(player3TokenAccount.amount)).eq(LAMPORTS_PER_SOL * 100);
     expect(Number(donorTokenAccount.amount)).eq(LAMPORTS_PER_SOL * 96);
-    expect(Number(adminTokenAccount.amount)).eq(LAMPORTS_PER_SOL * 4);
+    expect(Number(administratorTokenAccount.amount)).eq(LAMPORTS_PER_SOL * 4);
   });
 });

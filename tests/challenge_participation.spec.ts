@@ -211,6 +211,7 @@ describe('[challenge_participation]', async () => {
       new Transaction().add(...createTokenVaultIns),
       [administrator],
     );
+
     /**
      * @dev Initialize vault token account
      */
